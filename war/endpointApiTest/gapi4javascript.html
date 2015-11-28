@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <div><h3><a href="https://developers.google.com/api-client-library/javascript/dev/dev_jscript">
+            https://developers.google.com/api-client-library/javascript/dev/dev_jscript</a></h3></div>
+        <script>
+            function auth_init() {
+                console.log("Auth init...");
+            }
+            function client_init() {
+                console.log("gapi LIB loaded..");
+                //method 1: load
+                gapi.client.load('plus','v1');
+                gapi.client.load('assetendpoint','v1');
+                gapi.client.load('noteendpoint','v1');
+
+            }
+            
+        </script>
+        <script src="https://apis.google.com/js/client.js?onload=client_init">
+        </script>
+        <script src="https://apis.google.com/js/auth.js?onload=auth_init"></script>
+    </body>
+</html>

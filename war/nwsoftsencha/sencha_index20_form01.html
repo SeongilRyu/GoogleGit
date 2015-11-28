@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0,
+			maximum-scale=1.0, minimum-scale=1.0"/>
+<link rel="stylesheet" href="../nwsoftsencha/touch-2.3.1/resources/css/sencha-touch.css" type="text/css">			
+<script type="text/javascript" src="../nwsoftsencha/touch-2.3.1/sencha-touch-all-debug.js"></script>
+
+<link rel="shortcut icon" href="../nwsofthome/img/nwsoft_logo.png">
+<link rel="apple-touch-icon" href="../nwsofthome/img/nwsoft_logo.png">
+<script type="text/javascript">
+/****Ext.Ajax.request Templete
+Ext.Ajax.request({
+	url: "requestURL",
+	params: {paramName:value,...}|"paramName=value&...",
+	method: "GET|POST",
+	success: function(response, options) {...},
+	failure: function(response, options) {...},
+	callback: function(options, success, response) {...}
+});
+****/
+Ext.Loader.setConfig({enabled:true});
+Ext.application({
+	name: "MyApp",
+	launch: function() {
+		var formPanel = new Ext.form.Panel({
+			items: [
+				{xtype:"textfield",name:"mid",label:"UserId:"},
+				{xtype:"passwordfield",name:"mpassword",label:"Passwd:"}
+			]
+		});
+		var loginHandler=function(button,event) {
+			formPanel.submit({
+				url: "/nwsoftsencha/sencha_index20_form01j.jsp",
+				method: "POST",
+				success: function(form, result) {
+					if (result.loginResult=="success") {
+						Ext.Msg.alert("Alert","Logined:", Ext.emptyFn);
+					} else if (result.loginResult=="fail") {
+						Ext.Msg.alert("Alert","LoginFail:"+result.message, Ext.emptyFn);
+					}
+				},
+				failure: function(response, options) {
+					Ext.Msg.alert("Alert","Failure:" +result.status, Ext.emptyFn);
+				}
+			});	
+		};
+
+		var navBar=Ext.create("Ext.TitleBar", {
+			docked:"top",
+			title:"Login Form",
+			items:[{
+				text:"Login",
+				ui:"confirm",
+				handler:loginHandler
+			}]
+		});
+
+		var rootPanel=Ext.create("Ext.Panel", {
+			layout:"fit",
+			items:[navBar,formPanel]
+		});
+		Ext.Viewport.add(rootPanel);
+	}
+});   
+
+</script>
+<title>Sencha Touch</title>
+</head>
+
+<body>
+	<div class="result">Result:</div>
+<hr/>
+<font><b>Login Form</b></font>
+</body>
+
+</html>

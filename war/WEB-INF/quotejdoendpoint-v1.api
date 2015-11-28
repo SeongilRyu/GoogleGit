@@ -1,0 +1,198 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://nwsoftengine.appspot.com/_ah/api",
+  "name" : "quotejdoendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://nwsoftengine.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "nwsoft.com",
+  "ownerName" : "nwsoft.com",
+  "packagePath" : "nwsoftengine.entity",
+  "methods" : {
+    "quotejdoendpoint.insertQuoteJDO" : {
+      "path" : "insertQuoteJDO",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.insertQuoteJDO",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "quotejdoendpoint.updateQuoteJDO" : {
+      "path" : "updateQuoteJDO",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.updateQuoteJDO",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "quotejdoendpoint.removeQuoteJDO" : {
+      "path" : "removeQuoteJDO",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.removeQuoteJDO",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "quotejdoendpoint.listQuoteJDO" : {
+      "path" : "listQuoteJDO",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.listQuoteJDO",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "quotejdoendpoint.getQuoteJDO" : {
+      "path" : "getQuoteJDO",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.getQuoteJDO",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "QuoteJDO" : {
+        "id" : "QuoteJDO",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "author" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "testPass" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CollectionResponse_QuoteJDO" : {
+        "id" : "CollectionResponse_QuoteJDO",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "QuoteJDO"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.insertQuoteJDO" : {
+        "request" : {
+          "$ref" : "QuoteJDO"
+        },
+        "response" : {
+          "$ref" : "QuoteJDO"
+        }
+      },
+      "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.updateQuoteJDO" : {
+        "request" : {
+          "$ref" : "QuoteJDO"
+        },
+        "response" : {
+          "$ref" : "QuoteJDO"
+        }
+      },
+      "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.removeQuoteJDO" : {
+      },
+      "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.listQuoteJDO" : {
+        "response" : {
+          "$ref" : "CollectionResponse_QuoteJDO"
+        }
+      },
+      "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.getQuoteJDO" : {
+        "response" : {
+          "$ref" : "QuoteJDO"
+        }
+      }
+    }
+  }
+}

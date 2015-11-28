@@ -1,0 +1,15 @@
+﻿<user-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<record>
+<user>Smith</user>
+<pass>16753</pass>
+<app>UK</app>
+<etc>Qtr 3</etc>
+</record>
+<record>
+<user>Johnson</user>
+<pass>14808</pass>
+<app>USA</app>
+<etc>Qtr 4</etc>
+</record>
+
+</user-set>

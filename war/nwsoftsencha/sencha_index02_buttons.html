@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0,
+			maximum-scale=1.0, minimum-scale=1.0, 
+			user-scalable=no"/>
+<link rel="stylesheet" href="../nwsoftsencha/touch-2.3.1/resources/css/sencha-touch.css" type="text/css">			
+<script type="text/javascript" src="../nwsoftsencha/touch-2.3.1/sencha-touch-all-debug.js"></script>
+
+<link rel="shortcut icon" href="../nwsofthome/img/nwsoft_logo.png">
+<link rel="apple-touch-icon" href="../nwsofthome/img/nwsoft_logo.png">
+<!-- 웹앱 초기화 -->
+<script type="text/javascript">
+	Ext.Loader.setConfig({enabled:true});
+	Ext.application({
+		name: "MySenchaApp",
+		launch: function() {
+			var button = Ext.create("Ext.Button", {
+				text:"Add",
+				handler: function(btn, event) {
+					rootPanel.add(
+						Ext.create("Ext.Button", {
+							text:"Remove",
+							handler: function(btn,event) {
+								rootPanel.remove(btn,true);
+							}
+						})	
+					);
+				}
+			});
+			var rootPanel=Ext.create("Ext.Panel", {
+				items:[button]
+			});
+			Ext.Viewport.add(rootPanel);
+		}
+	});
+</script>
+<title>Sencha Touch</title>
+</head>
+<body>
+<h3>Hello world</h3>
+<hr/>
+	<font><b>SenchaTouch App.</b></font><br>
+     <div class="top_view" style="float:left;">
+     </div>     
+</body>
+</html>

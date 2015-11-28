@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0,
+			maximum-scale=1.0, minimum-scale=1.0, 
+			user-scalable=no"/>
+<link rel="stylesheet" href="../nwsoftsencha/touch-2.3.1/resources/css/sencha-touch.css" type="text/css">			
+<script type="text/javascript" src="../nwsoftsencha/touch-2.3.1/sencha-touch-all-debug.js"></script>
+
+<link rel="shortcut icon" href="../nwsofthome/img/nwsoft_logo.png">
+<link rel="apple-touch-icon" href="../nwsofthome/img/nwsoft_logo.png">
+<!-- 웹앱 초기화 -->
+<script type="text/javascript">
+	Ext.Loader.setConfig({enabled:true});
+	Ext.application({
+		name: "MySenchaApp",
+		launch: function() {
+			var panel = Ext.create("Ext.Panel", {
+				style:"background-color:#ff0000",
+				contentEl:"panelContent"
+			});
+
+			var rootPanel=Ext.create("Ext.Panel", {
+				items:[panel]
+			});
+			Ext.Viewport.add(rootPanel);
+		}
+	});
+</script>
+<title>Sencha Touch</title>
+</head>
+<body>
+<h3>Hello world</h3>
+<hr/>
+	<font><b>SenchaTouch ContentEl.</b></font><br>
+     <div id="panelContent" class="top_view" style="float:left;">
+     	<table><tr>
+     		<td><button>button1</button></td>
+     		<td><button>button2</button></td>
+     	</tr></table>
+     </div>     
+</body>
+</html>

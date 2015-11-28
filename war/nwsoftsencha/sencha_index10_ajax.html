@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0,
+			maximum-scale=1.0, minimum-scale=1.0"/>
+<link rel="stylesheet" href="../nwsoftsencha/touch-2.3.1/resources/css/sencha-touch.css" type="text/css">			
+<script type="text/javascript" src="../nwsoftsencha/touch-2.3.1/sencha-touch-all-debug.js"></script>
+
+<link rel="shortcut icon" href="../nwsofthome/img/nwsoft_logo.png">
+<link rel="apple-touch-icon" href="../nwsofthome/img/nwsoft_logo.png">
+<script type="text/javascript">
+/****Ext.Ajax.request Templete
+Ext.Ajax.request({
+	url: "requestURL",
+	params: {paramName:value,...}|"paramName=value&...",
+	method: "GET|POST",
+	success: function(response, options) {...},
+	failure: function(response, options) {...},
+	callback: function(options, success, response) {...}
+});
+****/
+Ext.Loader.setConfig({enabled:true});
+Ext.application({
+	name: "MyApp",
+	launch: function() {
+		var eventHandler=function(button,event) {
+			var xValue=Ext.getCmp("x").getValue();
+			var yValue=Ext.getCmp("y").getValue();
+	
+			Ext.getBody().mask('reading...','x-mask-loading',false);
+			Ext.Ajax.request({
+				//url: "http://192.168.219.178:8888/nwsoftsencha/sencha_index10_ajaxdata.jsp",
+				url: "/nwsoftsencha/sencha_index10_ajaxdata.jsp",
+				params: {x:xValue,y:yValue},
+				method: "POST",
+				success: function(response, options) {
+					Ext.Msg.alert("Alert","CalcSuccess:" + response.responseText, Ext.emptyFn);	
+				},
+				failure: function(response, options) {
+					Ext.Msg.alert("Alert","Failure:" + response.status, Ext.emptyFn);
+				}
+//				,
+//				callback: function(options, success, response) {
+//					Ext.Msg.alert("Alert","callback:" + options + success+ response.responseText , Ext.emptyFn);
+//				}
+			});	
+			Ext.getBody().unmask();	
+		};
+
+		var toolbar=Ext.create("Ext.Toolbar", {
+			docked:"top",
+			items:{
+				text:"Calculation",
+				ui:"confirm",
+				handler:eventHandler
+			}
+		});
+		var formPanel=new Ext.create("Ext.form.Panel", {
+			items: [
+				{id:"x", xtype:"textfield",name:"x",label:"x",value:10},
+				{id:"y", xtype:"textfield",name:"y",label:"y",value:2}
+			]
+		});
+
+		var rootPanel=Ext.create("Ext.Panel", {
+			layout:"fit",
+			items:[toolbar,formPanel]
+		});
+		Ext.Viewport.add(rootPanel);
+	}
+});   
+
+</script>
+<title>Sencha Touch</title>
+</head>
+
+<body>
+	<div class="result">Result:</div>
+<hr/>
+<font><b>test Simple Ajax request</b></font>
+</body>
+
+</html>

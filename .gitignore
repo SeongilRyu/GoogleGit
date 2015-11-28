@@ -1,0 +1,4 @@
+# My own excludings........................
+*.log
+endpoint-libs*
+.settings*

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>NwUser Test</title>
+</head>
+<body>
+	<form action="javascript:void(0);">
+	<h2>List NwUsers</h2>
+	<div><input id="listNwUser" type="submit" value="List NwUsers"></div>
+	</form>
+	<div id="listNwUsersResult"></div>
+	
+	<form action="javascript:void(0);">
+		<h2>Insert New NwUser</h2>
+		<div><input id="txtUserEmail" placeholder="User email here"></div>
+		<div><input id="txtUserPass" placeholder="User pass here"></div>
+		<div><input id="insertNwUser" type="submit" value="Insert Quote"></div>
+	</form>
+
+    <form action="javascript:void(0);">
+      <h2>Update User</h2>
+         <div><input id="editNwUserID" placeholder="Quote ID value"></input></div>
+         <div><input id="editUserEmail" placeholder="User email here"></input></div>
+         <div><input id="editUserpass" placeholder="User pass here"></input></div>
+         <div><input id="updateNwUser" type="submit" value="Update User"></div>
+    </form>
+    
+    <form action="javascript:void(0);">
+      <h2>Delete Quote</h2>
+         <div><input id="ID" placeholder="ID value"></input></div>
+         <div><input id="deleteNwUser" type="submit" value="Delete User"></div>
+    </form>
+    
+    <script type="text/javascript">
+    	function init() {
+    		//Parameters are APIName, APIVersion, Callback function, API Root
+    		gapi.client.load('nwuserendpoint','v1', null, 'http://localhost:8888/_ah/api');
+    		
+    		document.getElementById('listNwUser').onclick= function() {
+    			listQuotes();
+    		}
+    		document.getElementById('insertNwUser').onclick = function() {
+                insertQuote();
+	        }
+	        
+	        document.getElementById('updateNwUser').onclick = function() {
+	                updateQuote();
+	        }
+	        
+	        document.getElementById('deleteNwUser').onclick = function() {
+	                deleteQuote();
+	        }
+    	}
+        //List Users function that will execute the listUser call
+        function listNwUser() {
+        	gapi.client.nwuserendpoint.listNwUser().execute(function(resp) {
+        		if (!resp.code) {
+        			resp.items= resp.items || [];
+        			var result = "";
+        			for (var i=0;i<resp.items.length; i++) {
+        				result= result+ resp.items[i].message+ "..." + 
+        				"<b> by " + resp.items[i].author + "</b>" + 
+        				"[" + resp.items[i].id + "]" + "<br/>";
+        			}
+        			document.getElementById('listQuotesResult').innerHTML= result;
+        		}
+        	});
+        }
+	        
+        //Insert Quote function
+        function insertNwUser() {
+                //Validate the entries
+                var _AuthorName = document.getElementById('txtAuthorName').value;
+                var _Message = document.getElementById('txtMessage').value;
+                
+                //Build the Request Object
+                var requestData = {};
+                requestData.author = _AuthorName;
+                requestData.message = _Message;
+                gapi.client.quotejdoendpoint.insertQuoteJDO(requestData).execute(function(resp) {
+                        if (!resp.code) {
+                                //Just logging to console now, you can do your check here/display message
+                                console.log(resp.id + ":" + resp.author + ":" + resp.message);
+                        }
+                });
+                //clear input field
+                document.getElementById('txtAuthorName').value="";
+                document.getElementById('txtMessage').value="";
+        }
+      //Update Quote function
+        function updateNwUser() {
+                //Validate the entries
+                var _ID = document.getElementById("editQuoteID").value;
+                var _AuthorName = document.getElementById('editAuthorName').value;
+                var _Message = document.getElementById('editMessage').value;
+                
+                //Build the Request Object
+                var requestData = {};
+                requestData.id = _ID;
+                requestData.author = _AuthorName;
+                requestData.message = _Message;
+                gapi.client.quotejdoendpoint.updateQuoteJDO(requestData).execute(function(resp) {
+                        if (!resp.code) {
+                                //Just logging to console now, you can do your check here/display message
+                                console.log(resp.id + ":" + resp.author + ":" + resp.message);
+                        }
+                });
+        }
+	        
+        //Delete Quote function
+        function deleteNwUser() {
+                //Validate the entries
+                var _ID = document.getElementById('quoteID').value;
+                
+                //Build the Request Object
+                var requestData = {};
+                requestData.id = _ID;
+                console.log(requestData);
+                gapi.client.quotejdoendpoint.removeQuoteJDO(requestData).execute(function(resp) {
+                        //Just logging to console now, you can do your check here/display message
+                        console.log(resp);
+                });
+        }
+    </script>
+    <script src="https://apis.google.com/js/client.js?onload=init"></script>
+</body>
+</html>

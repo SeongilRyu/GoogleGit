@@ -1,0 +1,187 @@
+<html>
+<head>
+<script type="text/javascript"
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!--Chart1. Load the AJAX API-->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+
+      //Chart2. Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart','table']});
+
+      //Chart3. Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawBasic);
+      
+ 
+      function drawBasic() {
+        var arrData=[];
+        arrData=getData();
+        //dataTable from json
+        var data = new google.visualization.arrayToDataTable(arrData,true);  //false=first row is heading
+        //var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        var options = {'title':'',
+                       'width':800,
+                       'height':400};
+        chart.draw(data, options);
+        
+        //Show Table chart of my ETF portfolio to be selection
+        drawTable();
+      }
+    function getData() {
+        var priceClose=[];
+        var reqData=document.getElementById('stockCode').value;
+        console.log(reqData);
+        var csvData = $.ajax({
+        	url: "getData.jsp",
+          //url: "getData.php", --ok but appengine has no php env.
+          //url: "getData.js",
+          data : { stockCode: reqData },
+          dataType:"text/csv",
+          async: false
+          }).responseText;
+        var lines = [];
+        lines= csvData.split(/\r\n|\n/);
+        var arrTable=[];
+        for (i=0; i<lines.slice(1,lines.length).length; i++) {
+          var line=[];
+          line = lines[i].split(',');
+          //if (i>0) {
+            line[1]=parseFloat(line[1]);
+            line[2]=parseFloat(line[2]);
+            line[3]=parseFloat(line[3]);
+            line[4]=parseFloat(line[4]);
+            line[5]=parseFloat(line[5]);
+          //}
+          arrTable.push(line.slice(0,5));
+        }
+        //console.log(arrTable);
+        return arrTable.reverse();
+    }
+
+      function drawTable() {
+        var dataT = new google.visualization.DataTable();
+        dataT.addColumn('string', 'Name');
+        dataT.addColumn('number', 'Price');
+        dataT.addColumn('number', 'Gain');
+        dataT.addColumn('string', 'Date');
+        //data adds
+        //http://finance.google.com/finance/info?client=ig&q=EWY,EWJ
+        var jsonText = $.ajax({
+        	url: "getDataJson.jsp",
+          //url: "getDataJson.php",
+          dataType:"json",
+          async: false
+          }).responseText;
+        var jsonObj = JSON.parse(jsonText);
+        console.log(symb + curp, chg, dat);
+        var arrO=[];
+        for (var i =0; i<jsonObj.length; i++)  {
+          var arrI=[];
+          var symb = jsonObj[i].t;
+          var curp= jsonObj[i].l_cur;
+          var chg= jsonObj[i].c;
+          var dat= jsonObj[i].lt_dts;
+          arrI[0]=symb;
+          arrI[1]=parseFloat(curp);
+          arrI[2]=parseFloat(chg);
+          arrI[3]=dat;
+          arrO.push(arrI);
+        }
+        dataT.addRows(arrO);
+        // dataT.addRows([
+        //   ['EWY',   {v: 10000, f: '$10,000'}, 0.1],
+        //   ['EWJ',   {v:8000,   f: '$8,000'},  0.2],
+        //   ['EWT',   {v: 12500, f: '$12,500'}, 0.3],
+        //   ['EWH',   {v: 7000,  f: '$7,000'},  0.4]
+        // ]);
+
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+        table.draw(dataT, {showRowNumber: true});
+        
+        google.visualization.events.addListener(table, 'select', selectHandler);
+
+        function selectHandler() {
+          var selection = table.getSelection();
+          var message="";
+          for (var i=0; i<selection.length; i++) {
+            var item = selection[i];
+             if (item.row != null && item.column != null) {
+              var str = dataT.getFormattedValue(item.row, item.column);
+              message += '{row:' + item.row + ',column:' + item.column + '} = ' + str + '\n';
+             } else if (item.row != null) {
+              var str = dataT.getFormattedValue(item.row, 0);
+              message += '{row:' + item.row + ', column:none}; value (col 0) = ' + str + '\n';
+              document.getElementById('stockCode').value=str;
+              document.getElementById("table_event_result").innerHTML="<pre>" +
+                                    str + " is selected. </pre>";
+             }
+          }
+          //alert(message);
+        }
+      }
+      //Sample for PieChart...
+      function drawChart() {
+
+          // Create the data table.
+          var dataT = new google.visualization.DataTable();
+          dataT.addColumn('string', 'Topping');
+          dataT.addColumn('number', 'Slices');
+          dataT.addRows([
+            ['Mushrooms', 3],
+            ['Onions', 1],
+            ['Olives', 1],
+            ['Zucchini', 1],
+            ['Pepperoni', 2]
+          ]);
+
+          // Set chart options
+          var options = {'title':'How Much Pizza I Ate Last Night',
+                         'width':400,
+                         'height':300};
+
+          // Instantiate and draw our chart, passing in some options.
+          var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+          chart.draw(dataT, options);
+        }
+        
+    </script>
+</head>
+
+<body>
+	<h4>Global ETF Review</h4>
+	<div>
+		Stock code: <input type="text" id="stockCode" name="stockCode">
+		<input type="submit" value="Submit" onclick="getExternalData();">
+	</div>
+	<!--Div that will hold the line chart-->
+	<div>
+		<div id="chart_div"></div>
+		<div id="ads">
+			<script async
+				src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- adsense001 -->
+			<ins class="adsbygoogle"
+				style="display: inline-block; width: 234px; height: 60px"
+				data-ad-client="ca-pub-7142837732503760" data-ad-slot="2992213374"></ins>
+			<script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+		</div>
+	</div>
+	<hr>
+	<div>
+		<h7>Select an etf and click submit button.</h7>
+		<div id="table_div"></div>
+		<div id="table_event_result"></div>
+	</div>
+	<script>
+      function getExternalData() {
+        drawBasic();
+        drawTable();
+        
+      }
+    </script>
+</body>
+</html>

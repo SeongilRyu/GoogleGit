@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0,
+			maximum-scale=1.0, minimum-scale=1.0"/>
+<link rel="stylesheet" href="../nwsoftsencha/touch-2.3.1/resources/css/sencha-touch.css" type="text/css">			
+<script type="text/javascript" src="../nwsoftsencha/touch-2.3.1/sencha-touch-all-debug.js"></script>
+
+<link rel="shortcut icon" href="../nwsofthome/img/nwsoft_logo.png">
+<link rel="apple-touch-icon" href="../nwsofthome/img/nwsoft_logo.png">
+<script type="text/javascript">
+Ext.Loader.setConfig({enabled:true});
+Ext.application({
+	name: "MyApp",
+	launch: function() {
+		var ajaxProxy=Ext.create("Ext.data.proxy.Ajax", {
+			url:"/nwsoftsencha/sencha_index11_dataJson.jsp",
+			reader: {
+				type: "json",
+			}
+		});
+		Ext.define("MyApp.Phone", {
+			extend: "Ext.data.Model",
+			fields: ["pno","pname"],
+			proxy: ajaxProxy
+		});
+		
+		var btnRead1 = Ext.create("Ext.Button", {
+			text:"pno:'p1'",
+			ui:"confirm",
+			handler: function(button,event) {
+				//alert("reading...");
+				readData("p1");
+			}
+		});
+		function readData(pno) {
+			MyApp.Phone.load(null, {
+				params:{pno:pno},
+				success: function(model, operation) {
+					phone=model;
+					panel.setData(phone.data);
+					Ext.Msg.alert("alert","read success",Ext.emptyFn);
+				},
+				failure: function(model, operation) {
+					Ext.Msg.alert("alert","read Failed",Ext.emptyFn);
+				}
+			});
+		};
+		
+		var toolbar=Ext.create("Ext.Toolbar", {
+			docked:"top",
+			items:[btnRead1]
+		});
+		
+		var template= new Ext.XTemplate(
+			"<table>" +
+			"<tr>" +
+			"<td>{pno}</td>" +
+			"<td>{pname}</td>" +
+			"</tr>" +
+			"</table>"
+		);
+		var panel = Ext.create("Ext.Panel", {
+			tpl:template
+		});
+		var rootPanel=Ext.create("Ext.Panel", {
+			items:[toolbar,panel]
+		});
+		Ext.Viewport.add(rootPanel);
+	}
+});   
+
+</script>
+<title>Sencha Touch</title>
+</head>
+
+<body>
+	<div class="result">Result:</div>
+<hr/>
+<font><b>test Request JSONP by senchaTouch</b></font>
+</body>
+
+</html>

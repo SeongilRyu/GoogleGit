@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/javascript; charset=utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0,
+			maximum-scale=1.0, minimum-scale=1.0"/>
+<link rel="stylesheet" href="../nwsoftsencha/touch-2.3.1/resources/css/sencha-touch.css" type="text/css">			
+<script type="text/javascript" src="../nwsoftsencha/touch-2.3.1/sencha-touch-all-debug.js"></script>
+
+<link rel="shortcut icon" href="../nwsofthome/img/nwsoft_logo.png">
+<link rel="apple-touch-icon" href="../nwsofthome/img/nwsoft_logo.png">
+
+<script type="text/javascript">
+/****Ext.Ajax.request Templete
+Ext.util.JSONP.request({
+	url: "OtherDomainrequestURL",
+	params: {paramName:value,...}|"paramName=value&...",
+	callbackKey: "Key specified by the server-side provider",
+	callback: function(data) {...}
+});
+****/
+Ext.Loader.setConfig({enabled:true});
+Ext.application({
+	name: "MyApp",
+	launch: function() {
+		var eventHandler=function(button,event) {
+			Ext.util.JSONP.request({
+				url: "http://192.168.219.178:8888/nwsoftsencha/sencha_index16_jsonp01j.jsp",
+				//url: "/nwsoftsencha/sencha_index16_jsonp01j.jsp",
+				callbackKey: "serverKey",
+				callback: function(data) {
+					displayPhoneListJson(data)
+					Ext.Msg.alert("Alert","callback:" + data , Ext.emptyFn);
+				}
+			});	
+		}
+		//
+		function displayPhoneListJson(phoneArray) {
+			listPanel.removeAll(true);
+			Ext.Msg.alert("Alert","phoneArray:" + phoneArray , Ext.emptyFn);
+			for (var i=0; i<phoneArray.length; i++) {
+				var phone=phoneArray[i];
+				var pno=phone.pno;
+				var pname=phone.pname;
+				var pimage=phone.pimage;
+				var item = {
+					html: "<table style='border-bottom-style:solid;'><tr>" +
+						"<td>" + pno + "</td>" +
+						"<td>" + pname+"</td>" +
+						"<td>" + pimage+"</td>" +
+						"</tr></table>"
+				};
+				listPanel.add(item);
+			}
+		}
+
+		var toolbar=Ext.create("Ext.Toolbar", {
+			docked:"top",
+			items:[ {
+				text:"JSONP Process",
+				ui:"confirm",
+				handler:eventHandler
+			}] 
+		});
+	
+		var listPanel= new Ext.Panel();
+		
+		var rootPanel=Ext.create("Ext.Panel", {
+			//layout:"fit",
+			items:[toolbar,listPanel]
+		});
+		Ext.Viewport.add(rootPanel);
+	}
+});   
+
+</script>
+<title>Sencha Touch</title>
+</head>
+
+<body>
+	<div class="result">Result:</div>
+<hr/>
+<font><b>test JSONP cross-domain</b></font>
+</body>
+
+</html>

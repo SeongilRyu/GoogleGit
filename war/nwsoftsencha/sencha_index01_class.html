@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0,
+			maximum-scale=1.0, minimum-scale=1.0/>
+			
+<link rel="stylesheet" href="../nwsoftsencha/touch-2.3.1/resources/css/sencha-touch.css" type="text/css">			
+<script type="text/javascript" src="../nwsoftsencha/touch-2.3.1/sencha-touch-all-debug.js"></script>
+
+<script type="text/javascript">
+	//Class
+	Ext.define("User", {
+		name:null,
+		constructor:function(name) {
+		this.name=name;
+		},
+		getName:function() {
+			return this.name;
+		}
+	});
+	//Instance Class
+	var user= new User("Sencha TestUser");
+	//var user2=Ext.create("User2", "Touch");
+	//
+	console.log("user.name:" + user.name);
+	alert("user.name:" + user.name);
+	//console.log("user2.name:" + user2.name);
+	//meghod
+	console.log("user.getname:" + user.getName());
+</script>
+<title>Sencha Touch</title>
+</head>
+<body>
+<h3>Hello world</h3>
+<hr/>
+
+</body>
+</html>

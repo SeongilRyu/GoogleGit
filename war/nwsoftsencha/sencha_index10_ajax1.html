@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0,
+			maximum-scale=1.0, minimum-scale=1.0"/>
+<link rel="stylesheet" href="../nwsoftsencha/touch-2.3.1/resources/css/sencha-touch.css" type="text/css">			
+<script type="text/javascript" src="../nwsoftsencha/touch-2.3.1/sencha-touch-all-debug.js"></script>
+
+<link rel="shortcut icon" href="../nwsofthome/img/nwsoft_logo.png">
+<link rel="apple-touch-icon" href="../nwsofthome/img/nwsoft_logo.png">
+<script type="text/javascript">
+/****Ext.Ajax.request Templete
+Ext.Ajax.request({
+	url: "requestURL",
+	params: {paramName:value,...}|"paramName=value&...",
+	method: "GET|POST",
+	success: function(response, options) {...},
+	failure: function(response, options) {...},
+	callback: function(options, success, response) {...}
+});
+****/
+Ext.Loader.setConfig({enabled:true});
+Ext.application({
+	name: "MyApp",
+	launch: function() {
+		var eventHandler=function(button,event) {
+			//Ext.getBody().mask('reading...','x-mask-loading',false);
+			Ext.Ajax.request({
+				//url: "http://192.168.219.178:8888/nwsoftsencha/sencha_index10_ajax1xmldata.jsp",
+				url: "/nwsoftsencha/sencha_index10_ajax1xmldata.jsp",
+				method: "POST",
+				success: function(response, options) {
+					var xmlDoc=response.responseXML;
+					displayPhoneList(xmlDoc);
+					//Ext.Msg.alert("Alert","CalcSuccess:" + response.responseText, Ext.emptyFn);	
+				},
+				failure: function(response, options) {
+					Ext.Msg.alert("Alert","Failure:" + response.status, Ext.emptyFn);
+				}
+//				,
+//				callback: function(options, success, response) {
+//					Ext.Msg.alert("Alert","callback:" + options + success+ response.responseText , Ext.emptyFn);
+//				}
+			});	
+			//Ext.getBody().unmask();	
+		}
+		//
+		var eventHandlerJson=function(button,event) {
+			Ext.Ajax.request({
+				url: "/nwsoftsencha/sencha_index10_ajax1jsondata.jsp",
+				method: "GET",
+				success: function(response, options) {
+					var phoneArray=Ext.JSON.decode(response.responseText,false);
+					if (phoneArray != null ) {
+						displayPhoneListJson(phoneArray);
+					} else {
+						Ext.Msg.alert("Alert","Success:" + "null...", Ext.emptyFn);
+					}
+				},
+				failure: function(response, options) {
+					Ext.Msg.alert("Alert","Failure:" + response.status, Ext.emptyFn);
+				}
+			});	
+		}		
+		//
+		function displayPhoneList(xmlDoc) {
+			listPanel.removeAll(true);
+			var query= new Ext.dom.Query();
+			var phoneArray=query.select("phone",xmlDoc);
+			for (var i=0; i<phoneArray.length; i++) {
+				var phone=phoneArray[i];
+				var pno=phone.getAttribute("pno");
+				var pname=query.selectNode("pname",phone).childNodes[0].nodeValue;
+				var pimage=query.selectNode("pimage",phone).childNodes[0].nodeValue;
+				var item = {
+					html: "<table style='border-bottom-style:solid;'><tr>" +
+						"<td>" + pno + "</td>" +
+						"<td>" + pname+"</td>" +
+						"<td>" + pimage+"</td>" +
+						"</tr></table>"
+				};
+				listPanel.add(item);
+			}
+		}
+		function displayPhoneListJson(phoneArray) {
+			listPanel.removeAll(true);
+			for (var i=0; i<phoneArray.length; i++) {
+				var phone=phoneArray[i];
+				var pno=phone.pno;
+				var pname=phone.pname;
+				var pimage=phone.pimage;
+				var item = {
+					html: "<table style='border-bottom-style:solid;'><tr>" +
+						"<td>" + pno + "</td>" +
+						"<td>" + pname+"</td>" +
+						"<td>" + pimage+"</td>" +
+						"</tr></table>"
+				};
+				listPanel.add(item);
+			}
+		}
+		var btnAjax = new Ext.Button(
+			{
+				text:"Ajax-Xml processing",
+				ui:"confirm",
+				handler:eventHandler				
+			}
+		);
+		var btnJson= new Ext.Button({
+				text:"Ajax-Json processing",
+				ui:"confirm",
+				handler:eventHandlerJson 						
+		});
+		var toolbar=Ext.create("Ext.Toolbar", {
+			docked:"top",
+			items:[btnAjax, btnJson ] 
+		});
+	
+		var listPanel= new Ext.Panel();
+		
+		var rootPanel=Ext.create("Ext.Panel", {
+			//layout:"fit",
+			items:[toolbar,listPanel]
+		});
+		Ext.Viewport.add(rootPanel);
+	}
+});   
+
+</script>
+<title>Sencha Touch</title>
+</head>
+
+<body>
+	<div class="result">Result:</div>
+<hr/>
+<font><b>test Ajax XML</b></font>
+</body>
+
+</html>

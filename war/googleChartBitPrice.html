@@ -1,0 +1,96 @@
+<html>
+<head>
+  <style>
+   .chartWithMarkerOverlay {
+       position: relative;
+       width: 700px;
+   }
+   .overlay-text {
+       width: 200px;
+       height: 200px;
+       position: absolute;
+       top: 30px;   /* chartArea top */
+       left: 200px; /* chartArea left */
+   }
+   .overlay-marker {
+       width: 50px;
+       height: 50px;
+       position: absolute;
+       top: 53px;   /* chartArea top */
+       left: 528px; /* chartArea left */
+   }
+  </style>
+<script type="text/javascript"
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!--Chart1. Load the AJAX API-->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+
+      //Chart2. Load the Visualization API and the corechart and table package.
+      google.load('visualization', '1.0', {'packages':['corechart','table']});
+
+      //Chart3. Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawSheetName);
+      
+ 
+      function drawSheetName() {
+          //var queryString = encodeURIComponent('SELECT A,B,C,D/1000 LIMIT 5 OFFSET 8');
+          var queryString = encodeURIComponent('SELECT A,B,C,D/1000');
+
+          var query = new google.visualization.Query(
+              'https://docs.google.com/spreadsheets/d/1TD2d8-gLo3H6__D95L9Dg0S4NWiZ5oa6JD1h8On9W90/edit?usp=sharing&sheet=BitArbiTable&headers=1&tq=' + queryString);
+          query.send(handleQueryResponse);
+        }
+
+        function handleQueryResponse(response) {
+          if (response.isError()) {
+            alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+            return;
+          }
+
+          var data = response.getDataTable();  //google spreadsheet 읽어서 바로 getDataTable()해서 dataTable로 가져온다.
+          var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+          google.visualization.events.addListener(chart, 'ready', placeMarker.bind(chart, data));
+          chart.draw(data, { height: 400 });
+        }
+        function placeMarker(dataTable) {
+            var cli = this.getChartLayoutInterface();
+            var chartArea = cli.getChartAreaBoundingBox();
+            // "Bitcoin.jpg" is element #5.
+            //document.querySelector('.overlay-marker').style.top = Math.floor(cli.getYLocation(dataTable.getValue(5, 1))) - 50 + "px";
+            //document.querySelector('.overlay-marker').style.left = Math.floor(cli.getXLocation(5)) - 10 + "px";
+            document.querySelector('.overlay-marker').style.top = Math.floor(cli.getChartAreaBoundingBox().top) - 50 + "px";
+            document.querySelector('.overlay-marker').style.left = Math.floor(cli.getChartAreaBoundingBox().width) - 10 + "px";
+        };        
+    </script>
+</head>
+
+<body>
+	<h4>Bitcoin Price</h4>
+	<!--Div that will hold the line chart-->
+	<div>
+		<div id="chart_div"></div>
+		<div id="ads">
+			<script async
+				src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- adsense001 -->
+			<ins class="adsbygoogle"
+				style="display: inline-block; width: 234px; height: 60px"
+				data-ad-client="ca-pub-7142837732503760" data-ad-slot="2992213374"></ins>
+			<script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+		</div>
+	</div>
+	<hr>
+	<div class="overlay-marker">
+    	<img src="http://www.bitcoincasino.org/wp-content/uploads/2013/07/bitcoin1.jpg" height="50">
+  	</div>
+	<div>
+		<h7>Data table</h7>
+		<div id="table_div"></div>
+		<div id="table_event_result"></div>
+	</div>
+
+</body>
+</html>

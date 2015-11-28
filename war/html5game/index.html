@@ -1,0 +1,68 @@
+<!DOCTYPE html >
+<html>
+  <head>
+    <title>Html5 Game Demo</title>
+    <link href="./stylesheets/screen.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="./index.css" media="all" rel="stylesheet" type="text/css"/>
+    <script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script>
+    <script language="javascript" src="./javascripts/jquery.hotkeys.js" type="text/javascript"></script>
+    <script language="javascript" src="./javascripts/key_status.js" type="text/javascript"></script>
+    <script language="javascript" src="./javascripts/util.js" type="text/javascript"></script>
+    <script language="javascript" src="./javascripts/sprite.js" type="text/javascript"></script>
+    <script language="javascript" src="./javascripts/sound.js" type="text/javascript"></script>
+    <script language="javascript" src="./javascripts/finance.js" type="text/javascript"></script>
+    <script language="javascript" src="./index.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <h1>Html5 MonoStock</h1>
+    <div id="msg">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- developeryou_main_Blog1_728x90_as -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:728px;height:90px"
+           data-ad-client="ca-pub-7142837732503760"
+           data-ad-slot="7558227776"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+    <div id="gameHead" class="gameHead">
+      <table id="myTable">
+        <tr><th>연도</th><th>매출액(SPS)</th><th>순이익(EPS)</th></tr>
+        <tr><td>2014</td><td>1487786</td><td>197841</td></tr>
+        <tr><td>2015(E)</td><td id="revenue">200</td><td id="earning">20</td></tr>
+      </table>
+    </div>
+    <div id="gamePan" class="gamePan">
+
+    </div>
+    <br>
+    <div id="gameFoot">
+
+    </div>
+
+    <script>
+      var CANVAS_WIDTH = 480;
+      var CANVAS_HEIGHT = 320;
+      var FPS = 15;
+      var canvasElement = $("<canvas width='" + CANVAS_WIDTH +
+          "' height='" + CANVAS_HEIGHT + "'></canvas");
+        var canvas = canvasElement.get(0).getContext("2d");
+        canvasElement.appendTo('div.gamePan');
+        //get revenue data
+        document.getElementById("revenue").innerText=getRevenue("005930","rev");
+        document.getElementById("earning").innerText=getRevenue("005930","ern");
+
+        setInterval( function() {
+          drawFinance();
+        },2000);
+
+        setInterval(function() {
+          draw();
+          update();
+        }, 1000/FPS);
+    </script>
+
+
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0,
+			maximum-scale=1.0, minimum-scale=1.0, 
+			user-scalable=no"/>
+<link rel="stylesheet" href="../nwsoftsencha/touch-2.3.1/resources/css/sencha-touch.css" type="text/css">			
+<script type="text/javascript" src="../nwsoftsencha/touch-2.3.1/sencha-touch-all-debug.js"></script>
+
+<link rel="shortcut icon" href="../nwsofthome/img/nwsoft_logo.png">
+<link rel="apple-touch-icon" href="../nwsofthome/img/nwsoft_logo.png">
+<!-- 웹앱 초기화 -->
+<script type="text/javascript">
+	Ext.Loader.setConfig({enabled:true});
+	Ext.application({
+		name: "MySenchaApp",
+		launch: function() {
+			var card1 = Ext.create("Ext.Panel", {
+				style:"background-color:#ff0000",
+			});
+			var card2 = Ext.create("Ext.Panel", {
+				style:"background-color:#00ff00",
+			});
+			var card3 = Ext.create("Ext.Panel", {
+				style:"background-color:#0000ff",
+			});
+			var cardPanel=Ext.create("Ext.Panel", {
+				flex:1,
+				layout:"card",
+				items:[card1,card2,card3]
+			});						
+			var btn1 = Ext.create("Ext.Button", {
+				text:"Red",
+				handler: function(btn,event) {
+					cardPanel.setActiveItem(0);
+				}
+			});
+			var btn2 = Ext.create("Ext.Button", {
+				text:"Green",
+				handler: function(btn,event) {
+					cardPanel.setActiveItem(1);
+				}
+			});
+			var btn3 = Ext.create("Ext.Button", {
+				text:"Blue",
+				handler: function(btn,event) {
+					cardPanel.setActiveItem(2);
+				}
+			});			
+			var toolbar = Ext.create("Ext.Toolbar", {
+				docked:"top",
+				items:[btn1,btn2,btn3]
+			});
+			
+			var rootPanel=Ext.create("Ext.Panel", {
+				//layout:"default",
+				layout: {
+					type:"vbox"
+					//align:"top"
+					//pack:"start" 
+					},
+				items:[toolbar,cardPanel]
+			});
+			Ext.Viewport.add(rootPanel);
+		}
+	});
+</script>
+<title>Sencha Touch</title>
+</head>
+<body>
+<h3>Hello world</h3>
+<hr/>
+	<font><b>SenchaTouch CardLayout</b></font><br>
+     <div id="panelContent" class="top_view" style="float:left;">
+
+     </div>     
+</body>
+</html>

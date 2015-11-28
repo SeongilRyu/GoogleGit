@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>SignOn</title>
+    <style>
+        table,th,td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+        }
+    </style>
+    <script>
+        function showMessage(p1) {
+            //document.getElementById("signup").hide();
+            document.getElementById("signup").style.visibility="hidden";
+            document.getElementById("msgline").innerHTML = p1 + 'registered!!';
+            //return p1 * p2;              // the function returns the product of p1 and p2
+            window.history.back();
+            location.href = "http://localhost:8507/nwmineindex.html";
+        }
+        function btnClose() {
+            window.history.back();
+            location.href = "../nwmining/nwmineindex.html";
+        }
+    </script>
+</head>
+<body>
+<div id="container">
+    <div id="header"></div>
+    <div id="contents">
+	<h1>Register</h1><br>
+	
+	<div id="signup">
+		<form action="./php/getSignUp.php" method="get">
+         <table>
+		  <tr><td>User name:</td><td><input type="text" name="username">
+		  <tr><td>email: </td><td><input type="text" name="email"></td></tr>
+		  <tr><td>Password: </td><td><input type="password" name="password"></td></tr>
+		  <tr><td>Password confirm: </td><td><input type="password" name="passconfirm"></td></tr>
+		  <tr><td>Country: </td><td><input type="text" name="country"></td></tr>
+		  <tr><td>Payback BTC Wallet: </td><td><input type="text" name="paybackBtcWallet"></td></tr>
+		  <tr><td>Cancel</td><td><input type="submit" value="Submit" onclick="showMessage('user1')"></td></tr>
+         </table>
+		</form> 
+        <button onclick="btnClose()">Close</button>
+	</div>
+    <div id="msgline"></div>
+    </div><!--contents-end -->
+    <div id="footer"></div>
+</div>
+</body>
+</html>

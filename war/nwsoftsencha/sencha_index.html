@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0,
+			maximum-scale=1.0, minimum-scale=1.0"/>
+<link rel="stylesheet" href="../nwsoftsencha/touch-2.3.1/resources/css/sencha-touch.css" type="text/css">			
+<script type="text/javascript" src="../nwsoftsencha/touch-2.3.1/sencha-touch-all-debug.js"></script>
+
+<link rel="shortcut icon" href="../nwsofthome/img/nwsoft_logo.png">
+<link rel="apple-touch-icon" href="../nwsofthome/img/nwsoft_logo.png">
+<!-- 웹앱 초기화 -->
+<script type="text/javascript">
+	Ext.Loader.setConfig({enabled:true});
+	Ext.application({
+		name: "MySenchaApp",
+		launch: function() {
+			//alert("launch-Sencha Run");
+			var panel=Ext.create("Ext.Panel", {
+				html: "Hello World",
+				style: "background-color:#ffff00"
+				contentEl:"panelContent"
+			});
+
+			Ext.Viewport.add(panel);
+		}
+	});
+</script>
+<title>Sencha Touch</title>
+</head>
+<body>
+<h3>Hello world</h3>
+<hr/>
+	<font><b>SenchaTouch App.</b></font><br>
+     <div id="panelContent" class="top_view" style="float:left;">
+		  <a href="/nwsoftsencha/sencha_index01_class.html">sencha class</a><br>
+		  <a href="/nwsoftsencha/sencha_index01_views.html">sencha views</a><br>
+		  <a href="/nwsoftsencha/sencha_index02_buttons.html">sencha buttons</a><br>
+		  <a href="/nwsoftsencha/sencha_index03_htmls.html">sencha htmls</a><br>
+		  <a href="/nwsoftsencha/sencha_index04_contentEl.html">sencha ContentEl</a><br>
+		  <a href="/nwsoftsencha/sencha_index05_layout.html">sencha Layout</a><br>
+		  <a href="/nwsoftsencha/sencha_index06_cardlayout.html">sencha cardLayout</a><br>
+		  <hr>
+		  <a href="/nwsoftsencha/sencha_index10_ajax.html">AjaxRequest</a><br>
+		  <a href="/nwsoftsencha/sencha_index10_ajax1.html">AjaxRequestXML</a><br>
+		  <a href="/nwsoftsencha/sencha_index10_ajaxproxy_xmlreader.html">xml reader</a><br>
+		  <a href="/nwsoftsencha/sencha_index11_ajaxproxy_jsonreader.html">json reader</a><br>
+		  <hr>
+		  <a href="/nwsoftsencha/sencha_index16_jsonp01.html">jsonp crossdomain reader</a><br>
+		  <hr>
+		  <a href="/nwsoftsencha/sencha_index20_form01.html">form Login</a><br>	
+		  <hr>		  
+	      <a href="/nwsoftsencha/testRequestJSONP.html">nwsoftsencha_testRequestJSONP</a><br>
+	      <a href="/nwsoftsencha/testRequestAjaxJSONP.html">nwsoftsencha_testRequestAjaxJSONP</a><br>
+     </div>     
+</body>
+</html>

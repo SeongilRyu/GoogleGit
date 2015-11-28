@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+<title>nwsoft cloud mining home</title>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="./nwmining/nwmineindex.js"></script>
+</head>
+<body>
+<div id="container" >
+
+	<div id="header" style="background-color:#FFA500;">
+	<style>
+		#menu {
+			height:100%;
+			width:150px;
+		}
+		h1 {
+			margin-left: auto;
+    		margin-right: auto;
+		}
+		ul {
+		    list-style-type: none;
+		    margin: 0;
+		    padding: 0;
+		}
+		li {
+		    width: 150px;
+		    background: red;
+		    -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
+		    transition: width 2s;
+		}
+		li:hover {
+		    width: 200px;
+		}
+		table {
+			width:100%;
+            border-collapse: collapse;
+		}
+        .table-bordered {
+         border: 1px;
+         border-collapse: collapse;
+     }
+		#topheadrow, tr.topheadrow {
+			background-color: #ffffff;
+		}
+		td.logo {
+			/*background-image:url('./images/Appenginelauncher.PNG');*/
+			background-image:url('https://www.eobot.com/Bitcoin.png?width=50&height=50');
+			background-repeat:no-repeat;
+			background-position:center;
+			width:90px;
+		}
+		.fa-btc:before {
+		  content: "\f15a";
+		}
+	</style>
+        <table>
+            <tr id="topheadrow" class="topheadrow">
+                <td colspan="2">Total Hash Rate: 
+                    <b id="totalcloudhash" onclick="getHttpCloudHash(this);">71000</b> <!--Th/s-->
+                </td>
+                <td>Current Cloud Price:<i class='fa-btc' title='Bitcoin'></i> 0.0004 BTC/GHs</td>
+                <td><div id="LogIn" 
+                    onclick="openWin('LogIn')" 
+                    onmouseover="mOver(this)" 
+                    onmouseout="mOut(this)">
+                    LogIn |
+                    </div>  
+                    <div id=" signup"
+                    onclick="openWin('SignUp')" 
+                    onmouseover="mOver(this)" 
+                    onmouseout="mOut(this)">
+                        Sign Up
+                    </div>
+                </td>
+            </tr>
+            <tr>
+            	<td class="logo"></td>
+                <td><h1>NwSoft Cloud Mining Engine</h1>
+                </td>
+            </tr>
+        </table>
+	</div>
+    <script> document.getElementById("totalcloudhash").innerHTML=getHttpCloudHash(this);</script>
+	<div id="menu" style="background-color:#FFD700;float:left;">
+		<ul>
+			<li id="m_username" onmouseover="mOver(this)" onmouseout="mOut(this)">ktlee</li>
+			<li id="m_userprf" onmouseover="mOver(this)" onmouseout="mOut(this)">User profile</li>
+			<li id="m_globalsts" onmouseover="mOver(this)" onmouseout="mOut(this)">Global Status</li>
+			<li id="m_buycloud" onmouseover="mOver(this)" onmouseout="mOut(this)">Buy Cloud</li>
+			<li id="m_contactus" onmouseover="mOver(this)" onmouseout="mOut(this)">Contact Us</li>
+			<li id="m_downloadapp"><a href="./files/BitArbitrager.apk">download App</a></li>
+		</ul>
+	</div>
+    <script>
+        var username = document.getElementById("m_username");
+        username.onclick = function () {
+            //....first div
+        };
+        var userprf = document.getElementById("m_userprf");
+        userprf.onclick = function () {
+            alert("make userprf div")
+        };
+        var globalsts = document.getElementById("m_globalsts");
+        globalsts.onclick = function () {
+            //alert("userprf clicked"); 
+            var gstats = document.getElementById("globalstats");
+            //gstats.style.visibility = 'hidden';
+            gstats.style.visibility = 'visible';
+
+        };
+        var buycloud = document.getElementById("m_buycloud");
+        buycloud.onclick = function () {
+            alert("make buycloud.html");
+            location.href = "./buycloud.html";
+        };
+        function mOver(obj) {
+            obj.style.background = "green";
+        }
+
+        function mOut(obj) {
+            //obj.innerHTML = "Mouse Over Me"
+            obj.style.background = null;
+        }
+    </script>
+	<script>
+		var u= document.getElementById("m_username");
+		var uname="siryu";
+		u.style.color="green";
+		u.innerHTML=uname;
+		//alert(uname + " logged in successfully!");
+	</script>
+	
+	<div id="content" style="background-color:#EEEEEE;float:left;">
+		<h1 id="h1">ktlee's Current Status...:</h1>
+		<script>
+			document.getElementById("h1").innerHTML="Current Status of " + 
+												document.getElementById("m_username").innerHTML;
+		</script>
+		<table>
+			<tr><td>Your GHs:</td><td>1700 GHs</td><td id="ghs%"><script>document.getElementById("ghs%").innerHTML=1700/(71000 * 1000) * 100 + "%"</script></td>
+			</tr>
+			<tr><td>GHs cost:</td><td id="cost">1700</td><td id="cost$"></td>
+			</tr>
+			<tr>
+				<td>Current BTC:</td><td><b id="curBtc">1.02543142</b> BTC</td><td id="curBtc$">$ 600.00</td>
+			</tr>
+			<tr>
+				<td>Total BTC:</td><td id="sumBtc">21.47001022</td><td></td>
+			</tr>
+		</table>
+		<p id="demo">Ticker here...</p>
+		<p id="demo1">Now mining...</p>
+		<button onclick="clearInterval(myVar)">Stop time</button>
+		<script>
+		document.getElementById("cost").innerHTML=1700 * 0.0004 +" BTC";
+		document.getElementById("cost$").innerHTML="$ "+ (1700 * 0.0004 *600).toPrecision(11) ;
+      var cb = 1 + Math.random();
+      document.getElementById("curBtc").innerHTML = cb.toPrecision(9);  // + " BTC";
+      document.getElementById("curBtc$").innerHTML = "$ " + (cb * 600).toPrecision(11);
+      document.getElementById("sumBtc").innerHTML = (cb * 30).toPrecision(10) + " BTC";
+      //
+      var myVar=setInterval(function(){myTimer()},1000);
+      
+      function myTimer() {
+           var cur = document.getElementById("curBtc").innerHTML;
+           var cal = new Number(cur);
+           cal= cal * 1.00000001;
+          var d = new Date();
+          document.getElementById("demo").innerHTML = d.toLocaleTimeString();
+          document.getElementById("demo1").innerHTML = cal.toPrecision(9);
+          document.getElementById("curBtc").innerHTML = cal.toPrecision(9); // + " BTC"; */ */
+      }
+		</script>
+		<br/>
+		<br/>
+		<div id="globalstats">
+		 <h1>Global Stats</h1>       
+	        <div class="row">
+	            This is updated every second.
+	        </div>
+	        <br/>
+	        <div class="row" style="font-weight:normal;">
+	            <span style="font-style:normal">Note: </span>Weekly payouts are scheduled for every Sunday before Midnight ( 24:00 GMT -6 ).
+	            <br />            
+	        </div>
+	        <div class="row">
+	          <div class="col-md-12" style="max-width:700px;">
+	            <table id="globalStatstbl" class="table table-condensed table-bordered table-hover table-striped datatable tablesorter">
+	              <thead>
+	                <tr>
+	                  <th >Username &nbsp;</th>
+	                  <th >Hash Rate (GH/s) &nbsp;</th>
+	                  <th >Account Balance &nbsp;</th>
+	                  <th >Total Paid Out &nbsp;</th>                
+	                </tr>
+	              </thead>
+	              <tbody>
+	              	<tr>
+	              		<td >ktlee</td>
+	              		<td >1700 GHs</td>
+	              		<td >1.50000001 BTC</td>
+	              		<td >100.12344321 BTC</td>
+	              	</tr>
+	              </tbody>
+	             </table>
+	            </div>
+	           </div>
+		</div>
+	</div>
+    <script>
+        document.getElementById("globalstats").style.visibility = 'hidden';
+    </script>
+	<div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
+	Copyright © NwSoft.co.kr</div>
+
+</div>
+<!--content end-->
+</body>
+</html>

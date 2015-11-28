@@ -1,0 +1,246 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://nwsoftengine.appspot.com/_ah/api",
+  "name" : "nwuserendpoint",
+  "version" : "v1",
+  "description" : "APIs for user profile of nwsoft",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://nwsoftengine.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "nwsoft.com",
+  "ownerName" : "nwsoft.com",
+  "packagePath" : "nwsoftengine.entity",
+  "methods" : {
+    "nwuserendpoint.getNwUserByUserEmail" : {
+      "path" : "nwusercollection/{userEmail}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.nwsoft.nwsoftengine.entity.NwUserEndpoint.getNwUserByUserEmail",
+      "request" : {
+        "parameters" : {
+          "userEmail" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "nwuserendpoint.listNwUser" : {
+      "path" : "nwuser",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.nwsoft.nwsoftengine.entity.NwUserEndpoint.listNwUser",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "nwuserendpoint.updateNwUser" : {
+      "path" : "nwuser",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.nwsoft.nwsoftengine.entity.NwUserEndpoint.updateNwUser",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "nwuserendpoint.insertNwUser" : {
+      "path" : "nwuser",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.nwsoft.nwsoftengine.entity.NwUserEndpoint.insertNwUser",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "nwuserendpoint.removeNwUser" : {
+      "path" : "nwuser/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.nwsoft.nwsoftengine.entity.NwUserEndpoint.removeNwUser",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "nwuserendpoint.getNwUser" : {
+      "path" : "nwuser/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.nwsoft.nwsoftengine.entity.NwUserEndpoint.getNwUser",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "NwUser" : {
+        "id" : "NwUser",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "userEmail" : {
+            "type" : "string"
+          },
+          "userPass" : {
+            "type" : "string"
+          },
+          "userApps" : {
+            "type" : "string"
+          },
+          "userNick" : {
+            "type" : "string"
+          },
+          "userEtc" : {
+            "type" : "string"
+          },
+          "regDate" : {
+            "type" : "string"
+          }
+        }
+      },
+      "NwUserCollection" : {
+        "id" : "NwUserCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "NwUser"
+            }
+          }
+        }
+      },
+      "CollectionResponse_NwUser" : {
+        "id" : "CollectionResponse_NwUser",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "NwUser"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "com.nwsoft.nwsoftengine.entity.NwUserEndpoint.getNwUserByUserEmail" : {
+        "response" : {
+          "$ref" : "NwUserCollection"
+        }
+      },
+      "com.nwsoft.nwsoftengine.entity.NwUserEndpoint.listNwUser" : {
+        "response" : {
+          "$ref" : "CollectionResponse_NwUser"
+        }
+      },
+      "com.nwsoft.nwsoftengine.entity.NwUserEndpoint.updateNwUser" : {
+        "request" : {
+          "$ref" : "NwUser"
+        },
+        "response" : {
+          "$ref" : "NwUser"
+        }
+      },
+      "com.nwsoft.nwsoftengine.entity.NwUserEndpoint.insertNwUser" : {
+        "request" : {
+          "$ref" : "NwUser"
+        },
+        "response" : {
+          "$ref" : "NwUser"
+        }
+      },
+      "com.nwsoft.nwsoftengine.entity.NwUserEndpoint.removeNwUser" : {
+      },
+      "com.nwsoft.nwsoftengine.entity.NwUserEndpoint.getNwUser" : {
+        "response" : {
+          "$ref" : "NwUser"
+        }
+      }
+    }
+  }
+}
