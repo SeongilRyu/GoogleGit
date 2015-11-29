@@ -1,20 +1,23 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/d69rTsprbhJUzw3z23n-aCiLADA\"",
+ "etag": "\"u_zXkMELIlX4ktyNbM2XKD4vK8E/voHzh7fafES2dMPveq54ouBMp-U\"",
  "discoveryVersion": "v1",
- "id": "quoteapi:v1",
- "name": "quoteapi",
+ "id": "nwuserendpoint:v1",
+ "name": "nwuserendpoint",
  "version": "v1",
- "description": "An API to manage famous quotes",
+ "description": "APIs for user profile of nwsoft",
+ "ownerDomain": "nwsoft.com",
+ "ownerName": "nwsoft.com",
+ "packagePath": "nwsoftengine.entity",
  "icons": {
   "x16": "http://www.google.com/images/icons/product/search-16.gif",
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rest",
- "baseUrl": "https://nwsoftengine.appspot.com/_ah/api/quoteapi/v1/",
- "basePath": "/_ah/api/quoteapi/v1/",
+ "baseUrl": "https://nwsoftengine.appspot.com/_ah/api/nwuserendpoint/v1/",
+ "basePath": "/_ah/api/nwuserendpoint/v1/",
  "rootUrl": "https://nwsoftengine.appspot.com/_ah/api/",
- "servicePath": "quoteapi/v1/",
+ "servicePath": "nwuserendpoint/v1/",
  "batchPath": "batch",
  "parameters": {
   "alt": {
@@ -71,176 +74,172 @@
   }
  },
  "schemas": {
-  "Quote": {
-   "id": "Quote",
-   "type": "object",
-   "properties": {
-    "author": {
-     "type": "string"
-    },
-    "id": {
-     "type": "integer",
-     "format": "int32"
-    },
-    "message": {
-     "type": "string"
-    }
-   }
-  },
-  "QuoteCollection": {
-   "id": "QuoteCollection",
+  "CollectionResponse_NwUser": {
+   "id": "CollectionResponse_NwUser",
    "type": "object",
    "properties": {
     "items": {
      "type": "array",
      "items": {
-      "$ref": "Quote"
+      "$ref": "NwUser"
      }
+    },
+    "nextPageToken": {
+     "type": "string"
     }
    }
   },
-  "StringCollection": {
-   "id": "StringCollection",
+  "NwUser": {
+   "id": "NwUser",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "regDate": {
+     "type": "string"
+    },
+    "userApps": {
+     "type": "string"
+    },
+    "userEmail": {
+     "type": "string"
+    },
+    "userEtc": {
+     "type": "string"
+    },
+    "userNick": {
+     "type": "string"
+    },
+    "userPass": {
+     "type": "string"
+    }
+   }
+  },
+  "NwUserCollection": {
+   "id": "NwUserCollection",
    "type": "object",
    "properties": {
     "items": {
      "type": "array",
      "items": {
-      "type": "string"
+      "$ref": "NwUser"
      }
     }
    }
   }
  },
  "methods": {
-  "add": {
-   "id": "quoteapi.add",
-   "path": "addQuote/{id}/{author}/{message}",
+  "getNwUser": {
+   "id": "nwuserendpoint.getNwUser",
+   "path": "nwuser/{id}",
+   "httpMethod": "GET",
+   "parameters": {
+    "id": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "id"
+   ],
+   "response": {
+    "$ref": "NwUser"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "getNwUserByUserEmail": {
+   "id": "nwuserendpoint.getNwUserByUserEmail",
+   "path": "nwusercollection/{userEmail}",
+   "httpMethod": "GET",
+   "parameters": {
+    "userEmail": {
+     "type": "string",
+     "required": true,
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "userEmail"
+   ],
+   "response": {
+    "$ref": "NwUserCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "insertNwUser": {
+   "id": "nwuserendpoint.insertNwUser",
+   "path": "nwuser",
    "httpMethod": "POST",
-   "parameters": {
-    "author": {
-     "type": "string",
-     "required": true,
-     "location": "path"
-    },
-    "id": {
-     "type": "integer",
-     "required": true,
-     "format": "int32",
-     "location": "path"
-    },
-    "message": {
-     "type": "string",
-     "required": true,
-     "location": "path"
-    }
-   },
-   "parameterOrder": [
-    "id",
-    "author",
-    "message"
-   ],
-   "response": {
-    "$ref": "Quote"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "getMyList": {
-   "id": "quoteapi.getMyList",
-   "path": "stringcollection",
-   "httpMethod": "GET",
-   "response": {
-    "$ref": "StringCollection"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "getQuote": {
-   "id": "quoteapi.getQuote",
-   "path": "quote/{id}",
-   "httpMethod": "GET",
-   "parameters": {
-    "id": {
-     "type": "integer",
-     "required": true,
-     "format": "int32",
-     "location": "path"
-    }
-   },
-   "parameterOrder": [
-    "id"
-   ],
-   "response": {
-    "$ref": "Quote"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "list": {
-   "id": "quoteapi.list",
-   "path": "quotecollection",
-   "httpMethod": "GET",
-   "response": {
-    "$ref": "QuoteCollection"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "listByAuthor": {
-   "id": "quoteapi.listByAuthor",
-   "path": "quotecollection/{author}",
-   "httpMethod": "GET",
-   "parameters": {
-    "author": {
-     "type": "string",
-     "required": true,
-     "location": "path"
-    }
-   },
-   "parameterOrder": [
-    "author"
-   ],
-   "response": {
-    "$ref": "QuoteCollection"
-   },
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "remove": {
-   "id": "quoteapi.remove",
-   "path": "quote/{id}",
-   "httpMethod": "DELETE",
-   "parameters": {
-    "id": {
-     "type": "integer",
-     "required": true,
-     "format": "int32",
-     "location": "path"
-    }
-   },
-   "parameterOrder": [
-    "id"
-   ],
-   "scopes": [
-    "https://www.googleapis.com/auth/userinfo.email"
-   ]
-  },
-  "update": {
-   "id": "quoteapi.update",
-   "path": "quote",
-   "httpMethod": "PUT",
    "request": {
-    "$ref": "Quote",
+    "$ref": "NwUser",
     "parameterName": "resource"
    },
    "response": {
-    "$ref": "Quote"
+    "$ref": "NwUser"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "listNwUser": {
+   "id": "nwuserendpoint.listNwUser",
+   "path": "nwuser",
+   "httpMethod": "GET",
+   "parameters": {
+    "cursor": {
+     "type": "string",
+     "location": "query"
+    },
+    "limit": {
+     "type": "integer",
+     "format": "int32",
+     "location": "query"
+    }
+   },
+   "response": {
+    "$ref": "CollectionResponse_NwUser"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "removeNwUser": {
+   "id": "nwuserendpoint.removeNwUser",
+   "path": "nwuser/{id}",
+   "httpMethod": "DELETE",
+   "parameters": {
+    "id": {
+     "type": "string",
+     "required": true,
+     "format": "int64",
+     "location": "path"
+    }
+   },
+   "parameterOrder": [
+    "id"
+   ],
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "updateNwUser": {
+   "id": "nwuserendpoint.updateNwUser",
+   "path": "nwuser",
+   "httpMethod": "PUT",
+   "request": {
+    "$ref": "NwUser",
+    "parameterName": "resource"
+   },
+   "response": {
+    "$ref": "NwUser"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
