@@ -19,7 +19,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-@Api(name = "quotejdoendpoint", namespace = @ApiNamespace(ownerDomain = "nwsoft.com", ownerName = "nwsoft.com", packagePath = "nwsoftengine.entity"))
+@Api(name = "quotejdoendpoint", namespace = @ApiNamespace(ownerDomain = "nwsoft.com", 
+			ownerName = "nwsoft.com", packagePath = "nwsoftengine.entity"))
 public class QuoteJDOEndpoint {
 
 	/**

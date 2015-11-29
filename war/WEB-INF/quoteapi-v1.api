@@ -25,21 +25,6 @@
     "maxAge" : 0
   },
   "methods" : {
-    "quoteapi.list" : {
-      "path" : "quotecollection",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.nwsoft.nwsoftengine.service.QuoteServiceAPI.getQuotes",
-      "request" : {
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "quoteapi.listByAuthor" : {
       "path" : "quotecollection/{author}",
       "httpMethod" : "GET",
@@ -61,21 +46,15 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "quoteapi.getQuote" : {
-      "path" : "quote/{id}",
+    "quoteapi.list" : {
+      "path" : "quotecollection",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.nwsoft.nwsoftengine.service.QuoteServiceAPI.getQuote",
+      "rosyMethod" : "com.nwsoft.nwsoftengine.service.QuoteServiceAPI.getQuotes",
       "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int32",
-            "required" : true
-          }
-        },
         "body" : "empty"
       },
       "response" : {
@@ -129,6 +108,27 @@
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "quoteapi.getQuote" : {
+      "path" : "quote/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.nwsoft.nwsoftengine.service.QuoteServiceAPI.getQuote",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int32",
+            "required" : true
+          }
+        },
+        "body" : "empty"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -207,19 +207,14 @@
       }
     },
     "methods" : {
-      "com.nwsoft.nwsoftengine.service.QuoteServiceAPI.getQuotes" : {
-        "response" : {
-          "$ref" : "QuoteCollection"
-        }
-      },
       "com.nwsoft.nwsoftengine.service.QuoteServiceAPI.getQuoesByAuthor" : {
         "response" : {
           "$ref" : "QuoteCollection"
         }
       },
-      "com.nwsoft.nwsoftengine.service.QuoteServiceAPI.getQuote" : {
+      "com.nwsoft.nwsoftengine.service.QuoteServiceAPI.getQuotes" : {
         "response" : {
-          "$ref" : "Quote"
+          "$ref" : "QuoteCollection"
         }
       },
       "com.nwsoft.nwsoftengine.service.QuoteServiceAPI.getMyList" : {
@@ -233,6 +228,11 @@
         "request" : {
           "$ref" : "Quote"
         },
+        "response" : {
+          "$ref" : "Quote"
+        }
+      },
+      "com.nwsoft.nwsoftengine.service.QuoteServiceAPI.getQuote" : {
         "response" : {
           "$ref" : "Quote"
         }

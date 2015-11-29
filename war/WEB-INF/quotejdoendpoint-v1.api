@@ -80,6 +80,27 @@
         "body" : "empty"
       }
     },
+    "quotejdoendpoint.getQuoteJDO" : {
+      "path" : "getQuoteJDO",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.getQuoteJDO",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "quotejdoendpoint.listQuoteJDO" : {
       "path" : "listQuoteJDO",
       "httpMethod" : "GET",
@@ -97,27 +118,6 @@
           "limit" : {
             "type" : "int32",
             "required" : false
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "quotejdoendpoint.getQuoteJDO" : {
-      "path" : "getQuoteJDO",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.getQuoteJDO",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
           }
         },
         "body" : "empty"
@@ -183,14 +183,14 @@
       },
       "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.removeQuoteJDO" : {
       },
-      "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.listQuoteJDO" : {
-        "response" : {
-          "$ref" : "CollectionResponse_QuoteJDO"
-        }
-      },
       "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.getQuoteJDO" : {
         "response" : {
           "$ref" : "QuoteJDO"
+        }
+      },
+      "com.nwsoft.nwsoftengine.entity.QuoteJDOEndpoint.listQuoteJDO" : {
+        "response" : {
+          "$ref" : "CollectionResponse_QuoteJDO"
         }
       }
     }

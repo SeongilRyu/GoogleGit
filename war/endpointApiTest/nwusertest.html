@@ -15,20 +15,29 @@
 		<h2>Insert New NwUser</h2>
 		<div><input id="txtUserEmail" placeholder="User email here"></div>
 		<div><input id="txtUserPass" placeholder="User pass here"></div>
+		<div><input id="txtUserApp" placeholder="User App here"></div>
+		<div><input id="txtUserNick" placeholder="User Nickname here"></div>
+		<div><input id="txtUserEtc" placeholder="User Etc here"></div>
+		<!-- <div><input id="txtRegDate" placeholder="regist date here"></div> -->
 		<div><input id="insertNwUser" type="submit" value="Insert Quote"></div>
 	</form>
 
     <form action="javascript:void(0);">
       <h2>Update User</h2>
-         <div><input id="editNwUserID" placeholder="Quote ID value"></input></div>
+         <div><input id="editNwUserID" placeholder="Quote ID value[null]"></input>
+         	  <input id="btnGetNwUser" type="submit" value="GetUser">
+         </div>
          <div><input id="editUserEmail" placeholder="User email here"></input></div>
-         <div><input id="editUserpass" placeholder="User pass here"></input></div>
+         <div><input id="editUserPass" placeholder="User pass here"></input></div>
+         <div><input id="editUserApp" placeholder="User App here"></div>
+		<div><input id="editUserNick" placeholder="User Nickname here"></div>
+		<div><input id="editUserEtc" placeholder="User Etc here"></div>
          <div><input id="updateNwUser" type="submit" value="Update User"></div>
     </form>
     
     <form action="javascript:void(0);">
       <h2>Delete Quote</h2>
-         <div><input id="ID" placeholder="ID value"></input></div>
+         <div><input id="deleteID" placeholder="ID value"></input></div>
          <div><input id="deleteNwUser" type="submit" value="Delete User"></div>
     </form>
     
@@ -38,18 +47,20 @@
     		gapi.client.load('nwuserendpoint','v1', null, 'http://localhost:8888/_ah/api');
     		
     		document.getElementById('listNwUser').onclick= function() {
-    			listQuotes();
+    			listNwUser();
     		}
     		document.getElementById('insertNwUser').onclick = function() {
-                insertQuote();
+                insertNwUser();
 	        }
-	        
+    		document.getElementById('btnGetNwUser').onclick = function() {
+    				btnGetNwUser_onClick();
+        	}
 	        document.getElementById('updateNwUser').onclick = function() {
-	                updateQuote();
+	                updateNwUser();
 	        }
 	        
 	        document.getElementById('deleteNwUser').onclick = function() {
-	                deleteQuote();
+	                deleteNwUser();
 	        }
     	}
         //List Users function that will execute the listUser call
@@ -59,11 +70,15 @@
         			resp.items= resp.items || [];
         			var result = "";
         			for (var i=0;i<resp.items.length; i++) {
-        				result= result+ resp.items[i].message+ "..." + 
-        				"<b> by " + resp.items[i].author + "</b>" + 
+        				result= result+ resp.items[i].userEmail+ "..." + 
+        				"<b> by " + resp.items[i].userPass + "</b>" +
+        				", " + resp.items[i].userApps +
+        				", " + resp.items[i].userNick +
+        				", " + resp.items[i].userEtc +
+        				", " + resp.items[i].regDate +
         				"[" + resp.items[i].id + "]" + "<br/>";
         			}
-        			document.getElementById('listQuotesResult').innerHTML= result;
+        			document.getElementById('listNwUsersResult').innerHTML= result;
         		}
         	});
         }
@@ -71,56 +86,110 @@
         //Insert Quote function
         function insertNwUser() {
                 //Validate the entries
-                var _AuthorName = document.getElementById('txtAuthorName').value;
-                var _Message = document.getElementById('txtMessage').value;
+                var _userEmail = document.getElementById('txtUserEmail').value;
+                var _userPass = document.getElementById('txtUserPass').value;
+                var _userApp = document.getElementById('txtUserApp').value;
+                var _userNick = document.getElementById('txtUserNick').value;
+                var _userEtc = document.getElementById('txtUserEtc').value;
                 
                 //Build the Request Object
                 var requestData = {};
-                requestData.author = _AuthorName;
-                requestData.message = _Message;
-                gapi.client.quotejdoendpoint.insertQuoteJDO(requestData).execute(function(resp) {
+                requestData.userEmail = _userEmail;
+                requestData.userPass = _userPass;
+                requestData.userApps = _userApp;
+                requestData.userNick = _userNick;
+                requestData.userEtc = _userEtc;
+                gapi.client.nwuserendpoint.insertNwUser(requestData).execute(function(resp) {
                         if (!resp.code) {
-                                //Just logging to console now, you can do your check here/display message
-                                console.log(resp.id + ":" + resp.author + ":" + resp.message);
+                            //Just logging to console now, you can do your check here/display message
+                            console.log(resp.id + ":" + resp.userEmail + ":" + resp.userPass);
                         }
                 });
                 //clear input field
-                document.getElementById('txtAuthorName').value="";
-                document.getElementById('txtMessage').value="";
+                document.getElementById('txtUserEmail').value="";
+                document.getElementById('txtUserPass').value="";
+                document.getElementById('txtUserApp').value="";
+                document.getElementById('txtUserNick').value="";
+                document.getElementById('txtUserEtc').value="";
+                
+        }
+      //List Users function that will execute the listUser call
+        function btnGetNwUser_onClick() {
+    	  //if (document.getElementById("editNwUserID").value==null) return;
+    	  
+        	var _ID = document.getElementById("editNwUserID").value;
+        	//Build the Request Object
+            var requestData = {};
+            requestData.id = _ID;
+            console.log(requestData);
+        	gapi.client.nwuserendpoint.getNwUser(requestData).execute(function(resp) {
+        		//resp는 배열이 아님...
+        		if (!resp.code) {
+        			resp.items= resp.items || [];
+        			console.log(resp);
+        			var result = "";
+        			//for (var i=0;i<resp.items.length; i++) {
+        				result= result+ resp.userEmail+ "..." + 
+        				"<b> by " + resp.userPass + "</b>" +
+        				", " + resp.userApps +
+        				", " + resp.userNick +
+        				", " + resp.userEtc +
+        				", " + resp.regDate +
+        				"[" + resp.id + "]" + "<br/>";
+        				document.getElementById('editUserEmail').value= resp.userEmail; 
+        				document.getElementById('editUserPass').value= resp.userPass;
+        				document.getElementById('editUserApp').value = resp.userApps;
+        				document.getElementById('editUserNick').value= resp.userNick;
+        				document.getElementById('editUserEtc').value= resp.userEtc;
+        				//
+        			//}
+        			document.getElementById('listNwUsersResult').innerHTML= result;
+        		}
+        	});
         }
       //Update Quote function
         function updateNwUser() {
+        	if (document.getElementById("editNwUserID").value==null) return;
                 //Validate the entries
-                var _ID = document.getElementById("editQuoteID").value;
-                var _AuthorName = document.getElementById('editAuthorName').value;
-                var _Message = document.getElementById('editMessage').value;
+                var _ID = document.getElementById("editNwUserID").value;
+                var _userEmail = document.getElementById('editUserEmail').value;
+                var _userPass = document.getElementById('editUserPass').value;
+                var _userApp = document.getElementById('editUserApp').value;
+                var _userNick = document.getElementById('editUserNick').value;
+                var _userEtc = document.getElementById('editUserEtc').value;
                 
                 //Build the Request Object
                 var requestData = {};
                 requestData.id = _ID;
-                requestData.author = _AuthorName;
-                requestData.message = _Message;
-                gapi.client.quotejdoendpoint.updateQuoteJDO(requestData).execute(function(resp) {
+                requestData.userEmail = _userEmail;
+                requestData.userPass = _userPass;
+                requestData.userApps = _userApp;
+                requestData.userNick = _userNick;
+                requestData.userEtc = _userEtc;
+                
+                gapi.client.nwuserendpoint.updateNwUser(requestData).execute(function(resp) {
                         if (!resp.code) {
-                                //Just logging to console now, you can do your check here/display message
-                                console.log(resp.id + ":" + resp.author + ":" + resp.message);
+                            //Just logging to console now, you can do your check here/display message
+                        	console.log(resp.id + ":" + resp.userEmail + ":" + resp.userPass);
                         }
                 });
+                //no clear routine
         }
 	        
         //Delete Quote function
         function deleteNwUser() {
-                //Validate the entries
-                var _ID = document.getElementById('quoteID').value;
-                
-                //Build the Request Object
-                var requestData = {};
-                requestData.id = _ID;
-                console.log(requestData);
-                gapi.client.quotejdoendpoint.removeQuoteJDO(requestData).execute(function(resp) {
-                        //Just logging to console now, you can do your check here/display message
-                        console.log(resp);
-                });
+        	if (document.getElementById("editNwUserID").value==null) return;
+            //Validate the entries
+            var _ID = document.getElementById('deleteID').value;
+            
+            //Build the Request Object
+            var requestData = {};
+            requestData.id = _ID;
+            console.log(requestData);
+            gapi.client.nwuserendpoint.removeNwUser(requestData).execute(function(resp) {
+                    //Just logging to console now, you can do your check here/display message
+                    console.log(resp);
+            });
         }
     </script>
     <script src="https://apis.google.com/js/client.js?onload=init"></script>
