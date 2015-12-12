@@ -1,0 +1,46 @@
+<link rel="import" href="../core-drawer-panel/core-drawer-panel.html">
+<link rel="import" href="../core-icon-button/core-icon-button.html">
+
+<polymer-element name="my-element">
+
+  <template>
+    <style>    
+      #core_drawer_panel {
+        position: absolute;
+        top: 30px;
+        right: 0px;
+        bottom: 0px;
+        left: 20px;
+      }
+      #section {
+        box-shadow: rgba(0, 0, 0, 0.0980392) 0px 2px 4px, rgba(0, 0, 0, 0.0980392) 0px 0px 3px;
+        background-color: rgb(250, 250, 250);
+      }
+      #section1 {
+        height: 100%;
+        box-sizing: border-box;
+        background-color: rgb(221, 221, 221);
+      }
+      #core_icon_button {
+        left: 2px;
+        top: 42px;
+        position: absolute;
+      }
+    </style>
+    <core-drawer-panel transition id="core_drawer_panel" touch-action>
+      <section id="section" drawer>
+        <core-icon-button active icon="menu" id="core_icon_button" theme="core-light-theme" class="selected"></core-icon-button>
+      </section>
+      <section id="section1" main></section>
+    </core-drawer-panel>
+  </template>
+
+  <script>
+
+    Polymer({
+      
+    });
+
+  </script>
+
+</polymer-element>
