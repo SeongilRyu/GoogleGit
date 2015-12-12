@@ -2,3 +2,5 @@
 *.log
 endpoint-libs*
 .settings*
+war/WEB-INF*
+
