@@ -1,6 +1,8 @@
 package com.nwsoft.nwsoftengine;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.*;
 
 @SuppressWarnings("serial")
