@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
-    <head></head>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
     <body>
-        <div><h3><a href="https://developers.google.com/api-client-library/javascript/dev/dev_jscript">
-            https://developers.google.com/api-client-library/javascript/dev/dev_jscript</a></h3></div>
-        <div><a href="https://apis-explorer.appspot.com/apis-explorer/?base=https://myassetgae.appspot.com/_ah/api#p/">
-        	https://apis-explorer.appspot.com/apis-explorer/?base=https://myassetgae.appspot.com/_ah/api#p/
-        	</a><p>
-        	<a href ="https://apis-explorer.appspot.com/apis-explorer/?base=https://nwsoftengine.appspot.com/_ah/api#p/">
-        	https://apis-explorer.appspot.com/apis-explorer/?base=https://nwsoftengine.appspot.com/_ah/api#p/
-        	</a>
+        <div id='subject'><h3>Blogger API Study</h3>
         </div>
-        <div id='content'></div>
+        <div><a href="https://developers.google.com/api-client-library/javascript/dev/dev_jscript">
+            <h4>API Client Library for javascript</h4>
+            </a><p>
+        	<a href="https://developers.google.com/apis-explorer/?hl=ko#p/blogger/v3/">
+        	<h4>Blogger v3 Api</h4>
+        	</a><p>
+        </div>
+        <div>리스트:<div id='list'></div></div>
+        <div>내용:<div id='content'></div></div>
         <script>
             function init_Blogger() {
             	//ApiKey from(key for browser)
@@ -24,6 +27,9 @@
 				console.log('blogger loaded...');
             }
             function makeRequest() {
+            	//Equal to: 
+            	//GET https://www.googleapis.com/blogger/v3/blogs/blogId/posts
+            	//GET https://www.googleapis.com/blogger/v3/blogs/6527004784334721145/posts
             	var request = gapi.client.blogger.posts.list({
                     'blogId': '6527004784334721145'
                     //'fields': 'items(content,title,updated,id)'
@@ -32,12 +38,26 @@
                     console.log('Response: ' + response.result.items[0]);
                     for (var i = 0; i < response.result.items.length; i++) {
                     	//console.log(response.result.items[i].title);
-                    	document.getElementById('content').innerHTML += '<br>' + response.result.items[i].title +
+                    	document.getElementById('list').innerHTML += '<br>' + response.result.items[i].title +
                     	' (' + response.result.items[i].id + ')';
                     }
                   }, function(reason) {
                     console.log('Error: ' + reason.result.error.message);
                   });
+                  makeOnePostReq();
+            }
+            function makeOnePostReq() {
+            	var request=gapi.client.blogger.posts.get(
+            			{
+            				'blogId':'6527004784334721145',
+            				'postId':'5397023070989148362'
+            			});
+            	request.then(function(response){
+            		document.getElementById('content').innerHTML 
+            		= '<pre style="background-color:lightgrey;">' + response.result.content + '</pre>';
+            	}, function(reason) {
+            		console.log('Error a post: ' + reason.result.toString());
+            	});
             }
         </script>
         <script src="https://apis.google.com/js/client.js?onload=init_Blogger">
