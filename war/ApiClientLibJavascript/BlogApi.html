@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <div><h3><a href="https://developers.google.com/api-client-library/javascript/dev/dev_jscript">
+            https://developers.google.com/api-client-library/javascript/dev/dev_jscript</a></h3></div>
+        <div><a href="https://apis-explorer.appspot.com/apis-explorer/?base=https://myassetgae.appspot.com/_ah/api#p/">
+        	https://apis-explorer.appspot.com/apis-explorer/?base=https://myassetgae.appspot.com/_ah/api#p/
+        	</a><p>
+        	<a href ="https://apis-explorer.appspot.com/apis-explorer/?base=https://nwsoftengine.appspot.com/_ah/api#p/">
+        	https://apis-explorer.appspot.com/apis-explorer/?base=https://nwsoftengine.appspot.com/_ah/api#p/
+        	</a>
+        </div>
+        <div id='content'></div>
+        <script>
+            function init_Blogger() {
+            	//ApiKey from(key for browser)
+            	//https://console.developers.google.com/apis/credentials?project=api-project-795298509012
+            	gapi.client.setApiKey('AIzaSyCcypAQkF80650jb9RpjpqBnGsvBVbjeOE');
+            	//BlogId from...
+            	//https://www.blogger.com/blogger.g?blogID=6527004784334721145#overview/src=dashboard
+            	var BlogId='6527004784334721145';
+                gapi.client.load('blogger','v3').then(makeRequest);
+				console.log('blogger loaded...');
+            }
+            function makeRequest() {
+            	var request = gapi.client.blogger.posts.list({
+                    'blogId': '6527004784334721145'
+                    //'fields': 'items(content,title,updated,id)'
+                  });
+                  request.then(function(response) {
+                    console.log('Response: ' + response.result.items[0]);
+                    for (var i = 0; i < response.result.items.length; i++) {
+                    	//console.log(response.result.items[i].title);
+                    	document.getElementById('content').innerHTML += '<br>' + response.result.items[i].title +
+                    	' (' + response.result.items[i].id + ')';
+                    }
+                  }, function(reason) {
+                    console.log('Error: ' + reason.result.error.message);
+                  });
+            }
+        </script>
+        <script src="https://apis.google.com/js/client.js?onload=init_Blogger">
+        </script>
+    </body>
+</html>
