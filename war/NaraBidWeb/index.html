@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>NaraBidWeb</title>
+
+  <link rel="stylesheet" href="index.css" type="text/css">
+  <script src="index.js"></script>
+</head>
+
+<body>
+  <div id="head">head</div>
+  <div id="content">
+    <div id="left">left
+      <ul>
+        <li id="liThng" onmouseover="mOver(this)" onmouseout="mOut(this)">물품</li>
+        <li id="liCnst" >공사</li>
+        <li id="liSrvc" >용역</li>
+        <li id="liFrgn" >외자</li>
+      </ul>
+    </div>
+    <div id="center">
+      <div id="greeting"></div>
+      Bid No.:<input type="text" name="txtBidNo" value="20141124315">
+      <button id="btnGet">getBasePrice</button>
+      <div id="aheader"></div>
+      <div id="id01"></div>
+      <div id="id00"></div>
+      <div id="msg"></div>
+      <div id="page">
+        <iframe src="window.html" width="400"></iframe>
+      </div>
+    </div>
+  </div>
+  <div id="foot">footer</div>
+</body>
+</html>

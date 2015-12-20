@@ -18,12 +18,15 @@
 	java.sql.Connection conn;
 	java.sql.Statement stmt;
 	java.sql.ResultSet rs;
+	java.sql.ResultSetMetaData rsm;
 	java.sql.PreparedStatement pstmt;
-	
+	ArrayList<String> columns = new ArrayList<String>();
 	conn=null; 
 	stmt=null;
 	rs=null;
+	rsm=null;
 	pstmt=null;
+	
 	//JDBC Driver for SqlServer from http://jtds.sourceforge.net/  
 	//XXXJdbc.jar HAVE TO Paste to ÅèÄ¹/common/lib/
 	
@@ -38,7 +41,7 @@
 		conn=DriverManager.getConnection(url, user, pass);
 	}catch(ClassNotFoundException ce) {
 		ce.printStackTrace();
-		out.println(e);
+		out.println(ce);
 	}catch (SQLException e) {
 	    e.printStackTrace();
 	    out.println(e);
@@ -47,6 +50,7 @@
 	try {
 		stmt=conn.createStatement();
 		rs=stmt.executeQuery(sql);
+		rsm=rs.getMetaData();
 		while(rs.next()) {
 %>
 			<tr>
@@ -55,10 +59,16 @@
 			</tr>
 <%			
 		}
+		int i = 0;
+		while (i < rsm.getColumnCount()) {
+			out.println(rsm.getColumnName(i));
+			columns.add(rsm.getColumnName(i));
+		}
 	}catch(Exception e) {
 		e.printStackTrace();
 	}finally {
 		if (rs!=null) rs.close();
+		//if (rsm!=null) rsm.close();
 		if(stmt!=null) stmt.close();
 		if(conn!=null) conn.close();
 	}

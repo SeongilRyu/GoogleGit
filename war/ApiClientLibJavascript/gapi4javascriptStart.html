@@ -4,18 +4,16 @@
     <body>
         <div><h3><a href="https://developers.google.com/api-client-library/javascript/dev/dev_jscript">
             https://developers.google.com/api-client-library/javascript/dev/dev_jscript</a></h3></div>
-        <div><a href="https://apis-explorer.appspot.com/apis-explorer/?base=https://myassetgae.appspot.com/_ah/api#p/">
-        	https://apis-explorer.appspot.com/apis-explorer/?base=https://myassetgae.appspot.com/_ah/api#p/
-        	</a><p>
-        	<a href ="https://apis-explorer.appspot.com/apis-explorer/?base=https://nwsoftengine.appspot.com/_ah/api#p/">
-        	https://apis-explorer.appspot.com/apis-explorer/?base=https://nwsoftengine.appspot.com/_ah/api#p/
-        	</a>
+        <div>
+        <a href="BlogApi.html">Blogger API</a><br>
+        <a href="#">MAP API</a>
         </div>
+        <pre id="console" style="background-color:lightgrey;"></pre>
         <script>
             function client_init() {
-
                 gapi.client.load('blogger','v3');
 				console.log('blogger loaded...');
+				document.getElementById('console').innerHTML='apis client loaded and initialized...';
             }
             
         </script>

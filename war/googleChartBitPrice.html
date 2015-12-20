@@ -1,9 +1,10 @@
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
    .chartWithMarkerOverlay {
        position: relative;
-       width: 700px;
+       width: 80%;
    }
    .overlay-text {
        width: 200px;
@@ -30,59 +31,84 @@
       google.load('visualization', '1.0', {'packages':['corechart','table']});
 
       //Chart3. Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(drawSheetName);
+      google.setOnLoadCallback(drawChartfromSheetName);
       
  
-      function drawSheetName() {
-          //var queryString = encodeURIComponent('SELECT A,B,C,D/1000 LIMIT 5 OFFSET 8');
-          var queryString = encodeURIComponent('SELECT A,B,C,D/1000');
 
-          var query = new google.visualization.Query(
-              'https://docs.google.com/spreadsheets/d/1TD2d8-gLo3H6__D95L9Dg0S4NWiZ5oa6JD1h8On9W90/edit?usp=sharing&sheet=BitArbiTable&headers=1&tq=' + queryString);
-          query.send(handleQueryResponse);
-        }
+	function drawChartfromSheetName() {
+		//var queryString = encodeURIComponent('SELECT A,B,C,D/1000 LIMIT 5 OFFSET 8');
+		var queryString = encodeURIComponent('SELECT A,B,C,D/1000');
+		var URL = "https://docs.google.com/spreadsheets/d/1TD2d8-gLo3H6__D95L9Dg0S4NWiZ5oa6JD1h8On9W90/edit?usp=sharing&sheet=BitArbiTable&headers=1&tq=";
+		var query = new google.visualization.Query(URL + queryString);
+		query.send(handleQueryResponse);
+	}
 
-        function handleQueryResponse(response) {
-          if (response.isError()) {
-            alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-            return;
-          }
 
-          var data = response.getDataTable();  //google spreadsheet 읽어서 바로 getDataTable()해서 dataTable로 가져온다.
-          var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-          google.visualization.events.addListener(chart, 'ready', placeMarker.bind(chart, data));
-          chart.draw(data, { height: 400 });
-        }
-        function placeMarker(dataTable) {
-            var cli = this.getChartLayoutInterface();
-            var chartArea = cli.getChartAreaBoundingBox();
-            // "Bitcoin.jpg" is element #5.
-            //document.querySelector('.overlay-marker').style.top = Math.floor(cli.getYLocation(dataTable.getValue(5, 1))) - 50 + "px";
-            //document.querySelector('.overlay-marker').style.left = Math.floor(cli.getXLocation(5)) - 10 + "px";
-            document.querySelector('.overlay-marker').style.top = Math.floor(cli.getChartAreaBoundingBox().top) - 50 + "px";
-            document.querySelector('.overlay-marker').style.left = Math.floor(cli.getChartAreaBoundingBox().width) - 10 + "px";
-        };        
-    </script>
+	function handleQueryResponse(response) {
+		if (response.isError()) {
+			alert('Error in query: ' + response.getMessage() + ' '
+					+ response.getDetailedMessage());
+			return;
+		}
+
+		var data = response.getDataTable(); //google spreadsheet 읽어서 바로 getDataTable()해서 dataTable로 가져온다.
+		var chart = new google.visualization.LineChart(document
+				.getElementById('chart_div'));
+		google.visualization.events.addListener(chart, 'ready', placeMarker
+				.bind(chart, data));
+		chart.draw(data, {
+			height : 400
+		});
+		//
+		drawTable(data);
+		placeMarker(data);
+	}
+
+	function placeMarker(dataTable) {
+		var cli = this.getChartLayoutInterface();
+		var chartArea = cli.getChartAreaBoundingBox();
+		// "Bitcoin.jpg" is element #5.
+		//document.querySelector('.overlay-marker').style.top = Math.floor(cli.getYLocation(dataTable.getValue(5, 1))) - 50 + "px";
+		//document.querySelector('.overlay-marker').style.left = Math.floor(cli.getXLocation(5)) - 10 + "px";
+		document.querySelector('.overlay-marker').style.top = Math.floor(cli
+				.getChartAreaBoundingBox().top)
+				- 50 + "px";
+		document.querySelector('.overlay-marker').style.left = Math.floor(cli
+				.getChartAreaBoundingBox().width)
+				- 10 + "px";
+	};
+
+	function drawTable(dataTable) {
+		var table = new google.visualization.Table(document.getElementById('table_div'));
+		table.draw(dataTable, {showRowNumber : true});
+	}
+</script>
 </head>
 
 <body>
-	<h4>Bitcoin Price</h4>
+	<h3>Bitcoin Prices</h3>
+	<div id="ref"> The chart and table draw here with 
+	<a href="https://developers.google.com/chart/interactive/docs/spreadsheets#sheet-name">
+	Google Chart</a> and data from google sheet.</div>
 	<!--Div that will hold the line chart-->
-	<div>
-		<div id="chart_div"></div>
+	<div class="chartWithMarkerOverlay"><pre>Bitcoin prices retrieved from Btce, BitStamp and Korbit (where Korbit price/1000 scale)</pre> 
+		<div id="chart_div" ></div>
+		You can view detail value when mouse over the chart.
+	</div>
+	<hr>
+	<div id="google_ads_div">
 		<div id="ads">
 			<script async
 				src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 			<!-- adsense001 -->
 			<ins class="adsbygoogle"
-				style="display: inline-block; width: 234px; height: 60px"
+				style="display: inline-block; width: 728px; height: 90px"
 				data-ad-client="ca-pub-7142837732503760" data-ad-slot="2992213374"></ins>
 			<script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+	        (adsbygoogle = window.adsbygoogle || []).push({});
+	        </script>
 		</div>
-	</div>
-	<hr>
+	</div>	
 	<div class="overlay-marker">
     	<img src="http://www.bitcoincasino.org/wp-content/uploads/2013/07/bitcoin1.jpg" height="50">
   	</div>
