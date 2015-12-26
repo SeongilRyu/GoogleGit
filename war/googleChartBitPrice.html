@@ -1,26 +1,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-   .chartWithMarkerOverlay {
-       position: relative;
-       width: 80%;
-   }
-   .overlay-text {
-       width: 200px;
-       height: 200px;
-       position: absolute;
-       top: 30px;   /* chartArea top */
-       left: 200px; /* chartArea left */
-   }
-   .overlay-marker {
-       width: 50px;
-       height: 50px;
-       position: absolute;
-       top: 53px;   /* chartArea top */
-       left: 528px; /* chartArea left */
-   }
-  </style>
+<link rel="stylesheet" href="googleChartBitPrice.css" />
 <script type="text/javascript"
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <!--Chart1. Load the AJAX API-->
@@ -37,7 +18,7 @@
 
 	function drawChartfromSheetName() {
 		//var queryString = encodeURIComponent('SELECT A,B,C,D/1000 LIMIT 5 OFFSET 8');
-		var queryString = encodeURIComponent('SELECT A,B,C,D/1000');
+		var queryString = encodeURIComponent("SELECT A,B,C, D/1000 label D/1000 'Korbit'");
 		var URL = "https://docs.google.com/spreadsheets/d/1TD2d8-gLo3H6__D95L9Dg0S4NWiZ5oa6JD1h8On9W90/edit?usp=sharing&sheet=BitArbiTable&headers=1&tq=";
 		var query = new google.visualization.Query(URL + queryString);
 		query.send(handleQueryResponse);
@@ -52,10 +33,8 @@
 		}
 
 		var data = response.getDataTable(); //google spreadsheet 읽어서 바로 getDataTable()해서 dataTable로 가져온다.
-		var chart = new google.visualization.LineChart(document
-				.getElementById('chart_div'));
-		google.visualization.events.addListener(chart, 'ready', placeMarker
-				.bind(chart, data));
+		var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+		google.visualization.events.addListener(chart, 'ready', placeMarker.bind(chart, data));
 		chart.draw(data, {
 			height : 400
 		});
@@ -67,26 +46,25 @@
 	function placeMarker(dataTable) {
 		var cli = this.getChartLayoutInterface();
 		var chartArea = cli.getChartAreaBoundingBox();
-		// "Bitcoin.jpg" is element #5.
-		//document.querySelector('.overlay-marker').style.top = Math.floor(cli.getYLocation(dataTable.getValue(5, 1))) - 50 + "px";
-		//document.querySelector('.overlay-marker').style.left = Math.floor(cli.getXLocation(5)) - 10 + "px";
-		document.querySelector('.overlay-marker').style.top = Math.floor(cli
-				.getChartAreaBoundingBox().top)
-				- 50 + "px";
-		document.querySelector('.overlay-marker').style.left = Math.floor(cli
-				.getChartAreaBoundingBox().width)
-				- 10 + "px";
+		document.querySelector('.overlay-marker').style.top = Math.floor(cli.getChartAreaBoundingBox().top)- 20 + "px";
+		document.querySelector('.overlay-marker').style.left = Math.floor(cli.getChartAreaBoundingBox().width)- 10 + "px";
+		var lastPrice;
+		lastPrice = dataTable.getValue(dataTable.getNumberOfRows()-1,dataTable.getNumberOfColumns()-1);
+		document.querySelector("#headerMiddle").innerHTML = lastPrice +" Last Price of Korbit";
+		document.querySelector("#headerRight").innerHTML = dataTable.getValue(dataTable.getNumberOfRows()-1,0);
 	};
 
 	function drawTable(dataTable) {
 		var table = new google.visualization.Table(document.getElementById('table_div'));
-		table.draw(dataTable, {showRowNumber : true});
+		table.draw(dataTable, {showRowNumber:true, width:'100%', height: '100%'});
 	}
 </script>
 </head>
 
 <body>
-	<h3>Bitcoin Prices</h3>
+	<div id="header">
+	<div id="headerLeft"><h3>Bitcoin Prices</h3></div><div id="headerMiddle"></div><div id="headerRight"></div>
+	</div>
 	<div id="ref"> The chart and table draw here with 
 	<a href="https://developers.google.com/chart/interactive/docs/spreadsheets#sheet-name">
 	Google Chart</a> and data from google sheet.</div>
@@ -98,15 +76,16 @@
 	<hr>
 	<div id="google_ads_div">
 		<div id="ads">
-			<script async
-				src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<!-- adsense001 -->
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- AdUnit_Response -->
 			<ins class="adsbygoogle"
-				style="display: inline-block; width: 728px; height: 90px"
-				data-ad-client="ca-pub-7142837732503760" data-ad-slot="2992213374"></ins>
+				 style="display:block"
+				 data-ad-client="ca-pub-7142837732503760"
+				 data-ad-slot="3572434972"
+				 data-ad-format="auto"></ins>
 			<script>
-	        (adsbygoogle = window.adsbygoogle || []).push({});
-	        </script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
 		</div>
 	</div>	
 	<div class="overlay-marker">

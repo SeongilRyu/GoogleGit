@@ -2,19 +2,37 @@
 <html>
     <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Material Design Font...Ref to...http://google.github.io/material-design-icons/ -->
+      <!-- Library to...https://design.google.com/icons/ -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700" rel="stylesheet">
     </head>
     <body>
+    	 <!-- Start advertize -->
+	     <div class="myAdsense">
+	      	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- AdUnit_Response -->
+			<ins class="adsbygoogle"
+				 style="display:block"
+				 data-ad-client="ca-pub-7142837732503760"
+				 data-ad-slot="3572434972"
+				 data-ad-format="auto"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+	     </div>
+	     <!-- End advertize -->    
         <div id='subject'><h3>Blogger API Study</h3>
         </div>
         <div><a href="https://developers.google.com/api-client-library/javascript/dev/dev_jscript">
-            <h4>API Client Library for javascript</h4>
+            <h4><i class="material-icons">face</i>API Client Library for javascript</h4>
             </a><p>
         	<a href="https://developers.google.com/apis-explorer/?hl=ko#p/blogger/v3/">
-        	<h4>Blogger v3 Api</h4>
+        	<h4><i class="material-icons">face</i>Blogger v3 Api</h4>
         	</a><p>
         </div>
-        <div>리스트:<div id='list'></div></div>
-        <div>내용:<div id='content'></div></div>
+        <div><i class="material-icons">list</i>리스트:<div id='list'></div></div>
+        <div><i class="material-icons">view_quilt</i>내용:<div id='content'></div></div>
         <script>
             function init_Blogger() {
             	//ApiKey from(key for browser)
@@ -50,7 +68,7 @@
             	var request=gapi.client.blogger.posts.get(
             			{
             				'blogId':'6527004784334721145',
-            				'postId':'5397023070989148362'
+            				'postId':'6039095133011298653'
             			});
             	request.then(function(response){
             		document.getElementById('content').innerHTML 
@@ -62,7 +80,7 @@
         </script>
         <script src="https://apis.google.com/js/client.js?onload=init_Blogger">
         </script>
-    <div id="toto">
+    <div id="todos">
     Next...
     Publish BlogApi.html to see how it works.
     Think about ApiKey to Auth
