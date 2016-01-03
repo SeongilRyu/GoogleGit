@@ -13,43 +13,77 @@
     	 <!-- Start advertize -->
 	     <div class="myAdsense">
 	      	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<!-- AdUnit_Response -->
-			<ins class="adsbygoogle"
-				 style="display:block"
-				 data-ad-client="ca-pub-7142837732503760"
-				 data-ad-slot="3572434972"
-				 data-ad-format="auto"></ins>
-			<script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>
+    			<!-- AdUnit_Response -->
+    			<ins class="adsbygoogle"
+    				 style="display:block"
+    				 data-ad-client="ca-pub-7142837732503760"
+    				 data-ad-slot="3572434972"
+    				 data-ad-format="auto"></ins>
+    			<script>
+    			(adsbygoogle = window.adsbygoogle || []).push({});
+    			</script>
 	     </div>
 	     <!-- End advertize -->    
         <div id='subject'><h3>Blogger API Study</h3>
         </div>
         <div><a href="https://developers.google.com/api-client-library/javascript/dev/dev_jscript">
             <h4><i class="material-icons">face</i>API Client Library for javascript</h4>
-            </a><p>
+            </a>
         	<a href="https://developers.google.com/apis-explorer/?hl=ko#p/blogger/v3/">
         	<h4><i class="material-icons">face</i>Blogger v3 Api</h4>
         	</a><p>
+        	<button id="authorize-button" style="visibility: hidden">Authorize</button>
         </div>
         <div><i class="material-icons">list</i>리스트:
+              <div id='writePost' float='right'>
+                <a href="https://www.blogger.com/blogger.g?blogID=6527004784334721145#editor/src=dashboard" target="_top"> New Post...</a></div>
               <div id='list'></div>
         </div>
         <div><i class="material-icons">view_quilt</i>내용:
               <div id='content'></div>
         </div>
         <script>
+        	var apiKey="AIzaSyCcypAQkF80650jb9RpjpqBnGsvBVbjeOE";
+        	var clientId="795298509012-s8gjo9sm0i7a3jp2hkdrp4el8j1gdnlk.apps.googleusercontent.com";
+        	var scopes="https://www.googleapis.com/auth/blogger";
+        	<!--Step2. jsApi Init the AJAX API-->
             function init_Blogger() {
+
             	//ApiKey from(key for browser)
             	//https://console.developers.google.com/apis/credentials?project=api-project-795298509012
-            	gapi.client.setApiKey('AIzaSyCcypAQkF80650jb9RpjpqBnGsvBVbjeOE');
-            	//BlogId from...
+            	gapi.client.setApiKey(apiKey);
+            	window.setTimeout(checkAuth,1);
+
+
+            }
+			function checkAuth() {
+				gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, 
+									handleAuthResult);
+			}
+			function handleAuthClick(event) {
+				// Step 3: get authorization to use private data
+				gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+				return false;
+			}
+			function handleAuthResult(authResult) {
+				var authorizeButton = document.getElementById('authorize-button');
+				if (authResult && !authResult.error) {
+				  authorizeButton.style.visibility = 'hidden';
+				  makeApiCall();
+				  console.log(gapi.auth.getToken());
+				} else {
+				  authorizeButton.style.visibility = '';
+				  authorizeButton.onclick = handleAuthClick;
+				}
+			}
+			function makeApiCall() {
+				//BlogId from...
             	//https://www.blogger.com/blogger.g?blogID=6527004784334721145#overview/src=dashboard
+            	//todo:::auth된 유저의 블로그 아이디를 가져와야 한다.
             	var BlogId='6527004784334721145';
                 gapi.client.load('blogger','v3').then(makeRequest);
-				console.log('blogger loaded...');
-            }
+				        console.log('blogger loaded...');
+			}
             function makeRequest() {
             	//Equal to: 
             	//GET https://www.googleapis.com/blogger/v3/blogs/blogId/posts
@@ -61,23 +95,41 @@
                   request.then(function(response) {
                     console.log('Response: ' + response.result.items[0]);
                     var tableformat;
-                    tableformat = '<table><tr><th>Subject</th><th>Id</th></tr>';
+                    tableformat = "<table id='myTable'><tr><th>Subject</th><th>Id</th></tr>";
                     for (var i = 0; i < response.result.items.length; i++) {
-                    	tableformat += '<tr><td>' + response.result.items[i].title 
-                    	             + '</td><td>' + response.result.items[i].id 
+                    	tableformat += "<tr onmouseover='mOver(this);' onmouseout='mOut(this);' onclick='rowSelect(this);'><td>" 
+                    	             + response.result.items[i].title 
+                    	             + "</td><td onclick='cellSelect(this);'>" 
+                    	             + response.result.items[i].id 
                     	             + '</td></tr>';
                     }
                     document.getElementById('list').innerHTML = tableformat + '</table>';
+                    makeOnePostReq(response.result.items[0].id);
                   }, function(reason) {
                     console.log('Error: ' + reason.result.error.message);
                   });
-                  makeOnePostReq();
             }
-            function makeOnePostReq() {
+            function rowSelect(row) {
+              var x = row.cells[1].innerHTML;
+              //alert(typeOf x );
+              makeOnePostReq(x);
+            }
+            function cellSelect(cell) {
+              var x= cell.innerHTML;
+              makeOnePostReq(x);
+            }
+            function mOver(e) {
+              e.style.backgroundColor="lightblue";
+            }
+            function mOut(e) {
+              e.style.backgroundColor="";
+            }
+            function makeOnePostReq(id) {
+              console.log(id);
             	var request=gapi.client.blogger.posts.get(
             			{
             				'blogId':'6527004784334721145',
-            				'postId':'6039095133011298653'
+            				'postId':id
             			});
             	request.then(function(response){
             		document.getElementById('content').innerHTML 
@@ -87,8 +139,11 @@
             	});
             }
         </script>
+        <!--Step1. jsApi Load the AJAX API-->
         <script src="https://apis.google.com/js/client.js?onload=init_Blogger">
         </script>
+        <!--Chart1. Load the AJAX API-->
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>        
     <div id="todos">
     Next...
     Publish BlogApi.html to see how it works.

@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html>
-    <head></head>
+    <head>
+      <link rel="stylesheet" href="./gapi4javascriptStart.css"/>
+    </head>
     <body>
         <div><h3><a href="https://developers.google.com/api-client-library/javascript/dev/dev_jscript">
             https://developers.google.com/api-client-library/javascript/dev/dev_jscript</a></h3></div>
         <div>
-        <a href="BlogApi.html">Blogger API</a><br>
-        <a href="#">MAP API</a>
+        <div class="nw-topnav" id="topnav" style="position: relative;">
+          <div style="overflow:auto;">
+            <div style="float:left;width:50%;overflow:hidden;height:44px">
+              <a href="#" class="topnav-icons fa fa-home w3-left" title="Home"></a>
+              <a href="./BlogApi.html" class="w3-hide-small" title="BLOG">BLOG</a>
+              <a href="./MapApi.html" class="w3-hide-small" title="MAP">MAP</a>
+              <a href="#" class="w3-hide-small" title="JavaScript Tutorial">JAVASCRIPT</a>
+            </div>
+          </div>
         </div>
+        <div id="container">
+          <div id="left" class="nw-col">
+            <a href="BlogApi.html">Blogger API</a><br>
+            <a href="#">MAP API</a>
+          </div>
+          <div id="rest" class="nw-col">
+            <div id="restmain" class="nw-col">rest</div>
+            <div id="right" class="nw-col">
+              right
+            </div>
+          </div>
+        </div>
+
+        </div>
+        <div id="footer">
         <pre id="console" style="background-color:lightgrey;"></pre>
+        </div>
         <script>
             function client_init() {
                 gapi.client.load('blogger','v3');

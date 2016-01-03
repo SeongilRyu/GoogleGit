@@ -1,0 +1,44 @@
+.topnav {
+    position: relative;
+    z-index: 1;
+    font-size: 17px;
+    background-color: #5f5f5f;
+    color: #f1f1f1;
+    width: 100%;
+    padding: 0;
+    letter-spacing: 1px;
+}
+.fa-home:before {
+    content: '\e800';
+}
+#container {
+  width:100%;
+}
+.nw-col {
+  float:left;
+}
+#left {
+    position: fixed;
+    top: 0;
+    padding-top: 112px;
+    padding-bottom: 0;
+    height: 100%;
+    //width: 16.66666%;
+    width: 220px;
+    background-color: transparent;
+    z-index:9;
+}
+#rest {
+  width:83.3%;
+  height:100%;
+}
+#restmain {
+  width:83%;
+}
+@media only screen and (min-width: 993px)
+#right {
+  width: 16.66666%;
+}
+#footer {
+  float:auto;
+}
