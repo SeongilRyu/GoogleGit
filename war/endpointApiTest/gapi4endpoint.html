@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    	<link href="base.css" rel="stylesheet">  
+    </head>
+    <body>
+         <!-- Start advertize -->
+	     <div class="myAdsense" >
+	      	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      			<!-- AdUnit_Response -->
+      			<ins class="adsbygoogle"
+      				 style="display:block"
+      				 data-ad-client="ca-pub-7142837732503760"
+      				 data-ad-slot="3572434972"
+      				 data-ad-format="auto"></ins>
+      			<script>
+      			(adsbygoogle = window.adsbygoogle || []).push({});
+			    </script>
+	     </div>
+	     <!-- End advertize -->    
+        <div><a href="https://apis-explorer.appspot.com/apis-explorer/?base=https://myassetgae.appspot.com/_ah/api#p/">
+        	MyAssetEngine
+        	</a><p>
+        	<a href ="https://apis-explorer.appspot.com/apis-explorer/?base=https://nwsoftengine.appspot.com/_ah/api#p/">
+        	NesoftEngine
+        	</a>
+        <div><h3><a href="https://developers.google.com/api-client-library/javascript/dev/dev_jscript">
+            https://developers.google.com/api-client-library/javascript/dev/dev_jscript</a></h3>
+            <p>Custom API on AppEngine 애플리케이션.	          	
+        </div>
+        <div class="nw-top">
+            <a href="./apitest.html" target="_self">Endpoint API Test</a><p>
+            <a href="./nwusertest.html" target="_self">Nwuser API Test</a><p>
+        </div>
+        <div class="nw-center">
+        	<div class="nw-center-col1">col1</div>
+            <div class="nw-center-col2">col2</div>
+            <div class="nw-center-col3">col3</div>
+        </div>
+
+        <div class="nw-bottom">
+        <!---->
+        <div class="myAdsense">
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- developeryou_sidebar-right-1_AdSense1_250x250_as -->
+			<ins class="adsbygoogle"
+				 style="display:inline-block;width:250px;height:250px"
+				 data-ad-client="ca-pub-7142837732503760"
+				 data-ad-slot="2177846579"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+		</div>
+        <!---->
+        </div>
+
+        <script>
+            function auth_init() {
+                console.log("Auth init...");
+            }
+            function client_init() {
+                console.log("gapi LIB loaded..");
+                //method 1: load
+                gapi.client.load('quotejdoendpoint','v1', null, 'http://localhost:8888/_ah/api');
+                //gapi.client.load('quotejdoendpoint','v1');
+                //
+                gapi.client.load('assetendpoint','v1');
+                gapi.client.load('noteendpoint','v1');
+
+            }
+            
+        </script>
+        <script src="https://apis.google.com/js/client.js?onload=client_init">
+        </script>
+        <script src="https://apis.google.com/js/auth.js?onload=auth_init"></script>
+    </body>
+</html>

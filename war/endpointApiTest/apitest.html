@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link href="./base.css" rel="stylesheet">  
 <title>Famous Quotes</title>
 </head>
 <body>
+         <!-- Start advertize -->
+	     <div class="myAdsense" >
+	      	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      			<!-- AdUnit_Response -->
+      			<ins class="adsbygoogle"
+      				 style="display:block"
+      				 data-ad-client="ca-pub-7142837732503760"
+      				 data-ad-slot="3572434972"
+      				 data-ad-format="auto"></ins>
+      			<script>
+      			(adsbygoogle = window.adsbygoogle || []).push({});
+			    </script>
+	     </div>
+	     <!-- End advertize -->
 	<form action="javascript:void(0);">
 	<h2>List Quotes</h2>
 	<div><input id="listQuote" type="submit" value="List Quotes"></div>
 	</form>
 	<div id="listQuotesResult"></div>
 	
-	<form action="javascript:void(0);">
+	<form action="javascript:void(0);" class="nw-hidden">
 		<h2>Insert New Quote</h2>
 		<div><input id="txtAuthorName" placeholder="Author name here"></div>
 		<div><input id="txtMessage" placeholder="Quote text here"></div>
 		<div><input id="insertQuote" type="submit" value="Insert Quote"></div>
 	</form>
 
-    <form action="javascript:void(0);">
+    <form action="javascript:void(0);" class="nw-hidden">
       <h2>Update Quote</h2>
          <div><input id="editQuoteID" placeholder="Quote ID value"></input></div>
          <div><input id="editAuthorName" placeholder="Author name here"></input></div>
@@ -26,7 +42,7 @@
          <div><input id="updateQuote" type="submit" value="Update Quote"></div>
     </form>
     
-    <form action="javascript:void(0);">
+    <form action="javascript:void(0);" class="nw-hidden">
       <h2>Delete Quote</h2>
          <div><input id="quoteID" placeholder="Quote ID value"></input></div>
          <div><input id="deleteQuote" type="submit" value="Delete Quote"></div>
@@ -35,7 +51,8 @@
     <script type="text/javascript">
     	function init() {
     		//Parameters are APIName, APIVersion, Callback function, API Root
-    		gapi.client.load('quotejdoendpoint','v1', null, 'http://localhost:8888/_ah/api');
+    		//gapi.client.load('quotejdoendpoint','v1', null, 'http://localhost:8888/_ah/api');
+    		gapi.client.load('quotejdoendpoint','v1');
     		
     		document.getElementById('listQuote').onclick= function() {
     			listQuotes();

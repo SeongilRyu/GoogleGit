@@ -37,3 +37,6 @@ body {
 .nw-bottom {
 
 }
+.nw-hidden {
+    display:none;
+}

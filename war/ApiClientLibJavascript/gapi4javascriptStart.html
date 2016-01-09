@@ -1,48 +1,61 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <link rel="stylesheet" href="./gapi4javascriptStart.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      	<link href="gapi4javascriptStart.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+         <!-- Start advertize -->
+	     <div class="myAdsense" >
+	      	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      			<!-- AdUnit_Response -->
+      			<ins class="adsbygoogle"
+      				 style="display:block"
+      				 data-ad-client="ca-pub-7142837732503760"
+      				 data-ad-slot="3572434972"
+      				 data-ad-format="auto"></ins>
+      			<script>
+      			(adsbygoogle = window.adsbygoogle || []).push({});
+			    </script>
+	     </div>
+	     <!-- End advertize -->
+
         <div><h3><a href="https://developers.google.com/api-client-library/javascript/dev/dev_jscript">
             https://developers.google.com/api-client-library/javascript/dev/dev_jscript</a></h3></div>
-        <div>
-        <div class="nw-topnav" id="topnav" style="position: relative;">
-          <div style="overflow:auto;">
-            <div style="float:left;width:50%;overflow:hidden;height:44px">
-              <a href="#" class="topnav-icons fa fa-home w3-left" title="Home"></a>
-              <a href="./BlogApi.html" class="w3-hide-small" title="BLOG">BLOG</a>
-              <a href="./MapApi.html" class="w3-hide-small" title="MAP">MAP</a>
-              <a href="#" class="w3-hide-small" title="JavaScript Tutorial">JAVASCRIPT</a>
-            </div>
-          </div>
-        </div>
-        <div id="container">
-          <div id="left" class="nw-col">
-            <a href="BlogApi.html">Blogger API</a><br>
-            <a href="#">MAP API</a>
-          </div>
-          <div id="rest" class="nw-col">
-            <div id="restmain" class="nw-col">rest</div>
-            <div id="right" class="nw-col">
-              right
-            </div>
-          </div>
-        </div>
+            <p>API 클라이언트 라이브러리 for javascript로 구현하는 구글API 애플리케이션스.
+        <div>	               
+        <div class="nw-top">
+              <a href="#" class="topnav-icons fa fa-home w3-left" title="Home">H</a>
+              <a href="./BlogApi.html" class="w3-hide-small" title="BLOG">BLOG Api</a>
+              <a href="./MapApi.html" class="w3-hide-small" title="MAP">MAP Api</a>
+              <a href="./DriveApi.html">DRIVE Api</a>
+              <a href="./CalendarApi.html">CALENDAR Api</a>
 
         </div>
-        <div id="footer">
-        <pre id="console" style="background-color:lightgrey;"></pre>
+        <div class="nw-center">
+        	<div class="nw-center-col1">
+            <a href="BlogApi.html">Blogger API</a><br>
+            <a href="#">MAP API</a>
+            </div>
+            <div class="nw-center-col2">rest</div>
+            <div class="nw-center-col3">right</div>
         </div>
-        <script>
-            function client_init() {
-                gapi.client.load('blogger','v3');
-				console.log('blogger loaded...');
-				document.getElementById('console').innerHTML='apis client loaded and initialized...';
-            }
-            
-        </script>
-        <script src="https://apis.google.com/js/client.js?onload=client_init">
-        </script>
+
+        <div class="nw-bottom">
+        <!---->
+        <div class="myAdsense">
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- developeryou_sidebar-right-1_AdSense1_250x250_as -->
+			<ins class="adsbygoogle"
+				 style="display:inline-block;width:250px;height:250px"
+				 data-ad-client="ca-pub-7142837732503760"
+				 data-ad-slot="2177846579"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+		</div>
+        <!---->
+        </div>
     </body>
 </html>
